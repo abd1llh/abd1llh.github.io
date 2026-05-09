@@ -5,377 +5,302 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-    <!-- SEO -->
-    <meta name="description" content="Abdallah Mobaid — Cybersecurity Student focused on Web App Pentesting, Security Labs, and building secure systems.">
-    <meta name="keywords" content="cybersecurity, penetration testing, web security, CTF, bug bounty, home lab, Proxmox, offensive security">
+    <!-- Primary SEO -->
+    <title>Abdallah Mobaid | Cybersecurity Portfolio</title>
+
+    <meta name="title" content="Abdallah Mobaid | Cybersecurity Portfolio">
+    <meta name="description"
+        content="Abdallah Mobaid — Cybersecurity student focused on web application security, offensive security labs, automation, and secure infrastructure.">
+
+    <meta name="keywords"
+        content="cybersecurity, penetration testing, web security, bug bounty, CTF, offensive security, home lab, proxmox, red team, web app pentesting">
+
     <meta name="author" content="Abdallah Mobaid">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#0b0f19">
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://abd1llh.online">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Abdallah Mobaid | Cybersecurity Portfolio">
-    <meta property="og:description" content="Cybersecurity Student focused on Web App Pentesting and Security Labs.">
+    <meta property="og:description"
+        content="Cybersecurity student focused on offensive security, web application testing, and security labs.">
+
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://abd1llh.online">
-    <meta property="og:image" content="assets/images/profile.png">
+    <meta property="og:image" content="https://abd1llh.online/assets/images/profile.png">
 
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@abd1llh">
     <meta name="twitter:title" content="Abdallah Mobaid | Cybersecurity">
-    <meta name="twitter:description" content="Cybersecurity Student focused on Web App Pentesting and Security Labs.">
+    <meta name="twitter:description"
+        content="Cybersecurity student focused on offensive security and web application testing.">
 
-    <title>Abdallah Mobaid | Cybersecurity</title>
-    <link rel="stylesheet" href="css/main.css">
+    <meta name="twitter:image"
+        content="https://abd1llh.online/assets/images/profile.png">
+
+    <!-- Favicon -->
     <link rel="icon" href="assets/images/profile.png" type="image/png">
 
-    <!-- Preconnect for Google Fonts (faster load) -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Abdallah Mobaid",
+      "url": "https://abd1llh.online",
+      "image": "https://abd1llh.online/assets/images/profile.png",
+      "jobTitle": "Cybersecurity Student",
+      "sameAs": [
+        "https://github.com/abd1llh",
+        "https://instagram.com/abd9llh",
+        "https://tiktok.com/@abd1llh"
+      ]
+    }
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RWRHQMJL49"></script>
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+        gtag('config', 'G-RWRHQMJL49');
+    </script>
 </head>
 
 <body>
 
-    <!-- Minimal entry fade — no fake boot sequence -->
+    <!-- Minimal entry fade -->
     <div class="page-fade" aria-hidden="true"></div>
 
-    <!-- Skip link (Accessibility) -->
+    <!-- Skip link -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <!-- ══ NAVBAR ══ -->
+    <!-- NAVBAR -->
     <nav role="navigation" aria-label="Main navigation">
+
         <a href="#" class="profile-link" aria-label="abd1llh — go to top">
             <div class="profile-badge">
-                <img src="assets/images/profile.png" alt="Abdallah Mobaid" width="32" height="32" loading="eager">
+                <img src="assets/images/profile.png"
+                    alt="Abdallah Mobaid"
+                    width="32"
+                    height="32"
+                    loading="eager">
+
                 <div>
                     <div class="name">Abdallah Mobaid</div>
-                    <div class="role" data-i18n="hero_role">Cybersecurity</div>
+                    <div class="role">Cybersecurity</div>
                 </div>
             </div>
         </a>
 
         <div class="nav-actions">
+            <button class="hamburger"
+                type="button"
+                aria-label="Open menu"
+                aria-expanded="false"
+                aria-controls="menu">
 
-            <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
-        <span></span><span></span>
-      </button>
+                <span></span>
+                <span></span>
+            </button>
         </div>
+
     </nav>
 
-    <!-- ══ MENU OVERLAY ══ -->
-    <div class="menu-overlay" id="menu" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+    <!-- MENU -->
+    <div class="menu-overlay"
+        id="menu"
+        role="dialog"
+        aria-label="Navigation menu"
+        aria-hidden="true">
+
         <nav aria-label="Menu links">
-            <a href="#about" class="nav-link" data-i18n="nav_about">About</a>
-            <a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a>
+
+            <a href="#about" class="nav-link">About</a>
+
+            <a href="#projects" class="nav-link">Projects</a>
+
             <a href="#skills" class="nav-link">Skills</a>
+
             <a href="#certifications" class="nav-link">Certifications</a>
-            <a href="https://github.com/abd1llh" class="nav-link" target="_blank" rel="noreferrer noopener" data-i18n="nav_github">GitHub</a>
-            <a href="mailto:me@abd1llh.online" class="nav-link" data-i18n="nav_contact">Contact</a>
+
+            <a href="https://github.com/abd1llh"
+                class="nav-link"
+                target="_blank"
+                rel="noreferrer noopener">
+
+                GitHub
+            </a>
+
+            <a href="mailto:me@abd1llh.online"
+                class="nav-link">
+
+                Contact
+            </a>
+
         </nav>
-        <div class="menu-bottom" data-base-copy="© 2026 abd1llh">
+
+        <div class="menu-bottom">
             <span style="color:var(--green);font-weight:bold;" aria-hidden="true">>_</span>
-            <span data-i18n="menu_system_active">System Active</span><br><br> © 2026 abd1llh
+            <span>System Active</span>
+            <br><br>
+            © 2026 abd1llh
         </div>
     </div>
 
-    <!-- ══ MAIN ══ -->
+    <!-- MAIN -->
     <main id="main-content">
 
-        <!-- Hero -->
+        <!-- HERO -->
         <section class="hero" aria-labelledby="hero-heading">
+
             <div class="hero-positioning-badge reveal">
                 <span class="badge-dot" aria-hidden="true"></span>
-                <span data-i18n="hero_tag">Software Engineeing & Cybersecurity</span>
+
+                <span>
+                    Software Engineering & Cybersecurity
+                </span>
             </div>
 
-            <h1 id="hero-heading" class="reveal" data-i18n="hero_title">
-                Testing systems.<br><span>Finding cracks.</span>
+            <h1 id="hero-heading" class="reveal">
+                Breaking applications.<br>
+                <span>Understanding systems.</span>
             </h1>
 
-            <p class="reveal" data-i18n="hero_desc">
-                CS student at City University Malaysia · Focused on web vulnerability research, home lab infrastructure, and offensive security techniques.
+            <p class="reveal">
+                CS student at City University Malaysia · Focused on web application security, home lab infrastructure, and offensive security techniques.
             </p>
 
             <div class="hero-buttons reveal">
-                <a href="#projects" class="btn-primary" data-i18n="btn_projects">View Projects</a>
-                <a href="mailto:me@abd1llh.online" class="btn-secondary" data-i18n="nav_contact">Contact Me →</a>
+
+                <a href="#projects" class="btn-primary">
+                    View Projects
+                </a>
+
+                <a href="mailto:me@abd1llh.online"
+                    class="btn-secondary">
+
+                    Contact Me →
+                </a>
+
             </div>
 
+            <!-- STATS -->
             <div class="hero-stats reveal" aria-label="Quick stats">
+
                 <div class="stat">
-                    <span class="stat-val">1</span>
-                    <span class="stat-label">Active Lab</span>
+                    <span class="stat-val">15+</span>
+                    <span class="stat-label">Lab Machines</span>
                 </div>
+
                 <div class="stat-divider" aria-hidden="true"></div>
+
                 <div class="stat">
-                    <span class="stat-val">3+</span>
-                    <span class="stat-label">Projects</span>
+                    <span class="stat-val">20+</span>
+                    <span class="stat-label">Writeups</span>
                 </div>
+
                 <div class="stat-divider" aria-hidden="true"></div>
+
                 <div class="stat">
-                    <span class="stat-val">Sem 3</span>
-                    <span class="stat-label">CS Student</span>
+                    <span class="stat-val">Web</span>
+                    <span class="stat-label">Security Focus</span>
                 </div>
+
             </div>
+
         </section>
 
-        <!-- About -->
-        <section id="about" class="about-section" aria-labelledby="about-heading">
+        <!-- ABOUT -->
+        <section id="about"
+            class="about-section"
+            aria-labelledby="about-heading">
+
             <div class="about-card reveal">
-                <img src="assets/images/profile.png" alt="Abdallah Mobaid — Offensive Security Student" class="about-avatar" width="68" height="68" loading="lazy">
+
+                <img src="assets/images/profile.png"
+                    alt="Abdallah Mobaid — Offensive Security Student"
+                    class="about-avatar"
+                    width="68"
+                    height="68"
+                    loading="lazy">
+
                 <div class="about-content">
-                    <h2 id="about-heading">Abdallah Mobaid</h2>
-                    <div class="about-handle" aria-label="Handle">@abd1llh</div>
-                    <p data-i18n="about_desc">
-                        CS student at City University Malaysia · Cyberjaya · Passionate about offensive security, web app testing, and building real-world security labs. I learn by breaking things — ethically.
+
+                    <h2 id="about-heading">
+                        Abdallah Mobaid
+                    </h2>
+
+                    <div class="about-handle">
+                        @abd1llh
+                    </div>
+
+                    <p>
+                        CS student at City University Malaysia · Cyberjaya · Passionate about offensive security, web application testing, and building real-world security labs.
+
+                        Focused on understanding how modern applications fail — and how to secure them.
                     </p>
+
                     <div class="about-positioning">
                         <span class="positioning-label">Focus →</span>
-                        <span class="positioning-value">Web App Pentesting &amp; Home Lab Security</span>
-                    </div>
-                    <div class="about-badges" role="list" aria-label="Current activities">
-                        <span class="about-badge" role="listitem">Semester 3</span>
-                        <span class="about-badge" role="listitem">Proxmox Lab</span>
-                        <span class="about-badge" role="listitem">Home Assistant</span>
-                        <span class="about-badge" role="listitem">Bug Bounty</span>
-                        <span class="about-badge" role="listitem">HTB / THM</span>
-                    </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- Skills -->
-        <section id="skills" class="skills-section" aria-labelledby="skills-heading">
-            <h2 id="skills-heading" data-i18n="skills_title">Arsenal &amp; Skills</h2>
-            <div class="skills-grid reveal-stagger" role="list" aria-label="Technical skills">
-                <div class="skill-item" role="listitem">
-                    <div class="skill-icon" aria-hidden="true">⚔️</div>
-                    <div class="skill-name">Pentesting</div>
-                    <div class="skill-sub">Web · Network</div>
-                </div>
-                <div class="skill-item" role="listitem">
-                    <div class="skill-icon" aria-hidden="true">🔍</div>
-                    <div class="skill-name">OSINT</div>
-                    <div class="skill-sub">Recon · Footprint</div>
-                </div>
-                <div class="skill-item" role="listitem">
-                    <div class="skill-icon" aria-hidden="true">🐍</div>
-                    <div class="skill-name">Python</div>
-                    <div class="skill-sub">Scripting · Auto</div>
-                </div>
-                <div class="skill-item" role="listitem">
-                    <div class="skill-icon" aria-hidden="true">🏗️</div>
-                    <div class="skill-name">Home Lab</div>
-                    <div class="skill-sub">Proxmox · Docker</div>
-                </div>
-                <div class="skill-item" role="listitem">
-                    <div class="skill-icon" aria-hidden="true">🔐</div>
-                    <div class="skill-name">Cryptography</div>
-                    <div class="skill-sub">Concepts · Impl</div>
-                </div>
-                <div class="skill-item" role="listitem">
-                    <div class="skill-icon" aria-hidden="true">🛡️</div>
-                    <div class="skill-name">Red Teaming</div>
-                    <div class="skill-sub">Attack Sim</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Projects -->
-        <section id="projects" aria-labelledby="projects-heading">
-            <h2 id="projects-heading" data-i18n="section_projects">Projects</h2>
-            <p class="section-sub" data-i18n="section_projects_sub">Systems I've built and tested.</p>
-
-            <div class="projects-grid reveal-stagger">
-
-                <article class="project-card" aria-labelledby="proj1-title">
-                    <div class="project-card-header">
-                        <div class="project-icon" aria-hidden="true">🔐</div>
-                        <div class="project-status project-status--live">
-                            <span class="status-dot" aria-hidden="true"></span>
-                            <span>Live on GitHub</span>
-                        </div>
+                        <span class="positioning-value">
+                            Web App Pentesting & Home Lab Security
+                        </span>
                     </div>
-                    <h3 id="proj1-title" data-i18n="project1_title">Web Vulnerability Lab</h3>
-                    <p data-i18n="project1_desc">
-                        Hands-on lab demonstrating SQL Injection attack and defense using Flask and SQLite. Includes both vulnerable and patched versions.
-                    </p>
-                    <div class="project-architecture">
-                        <div class="arch-label">Architecture</div>
-                        <div class="arch-stack">
-                            <span>Flask</span>
-                            <span class="arch-arrow">→</span>
-                            <span>SQLite</span>
-                            <span class="arch-arrow">→</span>
-                            <span>Docker</span>
-                        </div>
-                    </div>
-                    <div class="tags" role="list" aria-label="Technologies">
-                        <span role="listitem">Python</span>
-                        <span role="listitem">Flask</span>
-                        <span role="listitem">SQLite</span>
-                        <span role="listitem">SQLi</span>
-                    </div>
-                    <a href="https://github.com/abd1llh/web-vuln-lab" target="_blank" rel="noreferrer noopener" class="project-link" data-i18n="btn_view_github" aria-label="View Web Vulnerability Lab on GitHub">
-            View on GitHub →
-          </a>
-                </article>
 
-                <article class="soon-card" aria-labelledby="proj2-title">
-                    <div class="soon-status" style="color:var(--red);" data-i18n="project2_status">[ Access Denied ]</div>
-                    <h3 id="proj2-title" class="soon-title">API Security Lab</h3>
-                    <div class="soon-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="60% complete">
-                        <div class="progress-bar" style="width:60%"></div>
-                    </div>
-                    <span class="soon-pct">60% complete</span>
-                    <p class="soon-desc" data-i18n="project2_desc">
-                        REST API vulnerability environment with JWT attacks, BOLA, and rate-limit bypass demos.
-                    </p>
-                </article>
+                    <div class="about-badges"
+                        role="list"
+                        aria-label="Current activities">
 
-                <article class="soon-card" aria-labelledby="proj3-title">
-                    <div class="soon-status" style="color:var(--amber);" data-i18n="project3_status">[ Restricted Area ]</div>
-                    <h3 id="proj3-title" class="soon-title">OSINT Automation</h3>
-                    <div class="soon-progress" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="20% complete">
-                        <div class="progress-bar progress-bar--amber" style="width:20%"></div>
+                        <span class="about-badge" role="listitem">
+                            Semester 3
+                        </span>
+
+                        <span class="about-badge" role="listitem">
+                            Proxmox Lab
+                        </span>
+
+                        <span class="about-badge" role="listitem">
+                            Home Assistant
+                        </span>
+
+                        <span class="about-badge" role="listitem">
+                            Bug Bounty
+                        </span>
+
+                        <span class="about-badge" role="listitem">
+                            HTB / THM
+                        </span>
+
                     </div>
-                    <span class="soon-pct">20% complete</span>
-                    <p class="soon-desc" data-i18n="project3_desc">
-                        Automated recon combining Shodan, WHOIS, and DNS enumeration into a unified report.
-                    </p>
-                </article>
+
+                </div>
 
             </div>
-        </section>
 
-        <!-- Certifications / Learning Path -->
-        <section id="certifications" class="certs-section" aria-labelledby="certs-heading">
-            <h2 id="certs-heading">Learning Path</h2>
-            <p class="section-sub">Certifications &amp; platforms I'm actively working through.</p>
-            <div class="certs-grid reveal-stagger" role="list">
-                <div class="cert-card cert-card--active" role="listitem">
-                    <div class="cert-logo" aria-hidden="true">⬡</div>
-                    <div class="cert-info">
-                        <div class="cert-name">HackTheBox</div>
-                        <div class="cert-status cert-status--active">Active</div>
-                    </div>
-                </div>
-                <div class="cert-card cert-card--active" role="listitem">
-                    <div class="cert-logo" aria-hidden="true">🧩</div>
-                    <div class="cert-info">
-                        <div class="cert-name">TryHackMe</div>
-                        <div class="cert-status cert-status--active">Active</div>
-                    </div>
-                </div>
-                <div class="cert-card cert-card--planned" role="listitem">
-                    <div class="cert-logo" aria-hidden="true">📜</div>
-                    <div class="cert-info">
-                        <div class="cert-name">eJPT</div>
-                        <div class="cert-status cert-status--planned">Roadmap</div>
-                    </div>
-                </div>
-                <div class="cert-card cert-card--planned" role="listitem">
-                    <div class="cert-logo" aria-hidden="true">🎯</div>
-                    <div class="cert-info">
-                        <div class="cert-name">OSCP</div>
-                        <div class="cert-status cert-status--planned">Goal</div>
-                    </div>
-                </div>
-            </div>
         </section>
 
     </main>
 
-    <!-- ══ FOOTER ══ -->
-    <footer role="contentinfo">
-        <div class="footer-inner">
-
-            <!-- Terminal prompt -->
-            <div class="footer-prompt" aria-hidden="true">
-                <span class="footer-prompt-user">abd1llh@root</span>
-                <span class="footer-prompt-path">:~$</span>
-                <span class="footer-prompt-cursor"></span>
-            </div>
-
-            <!-- Name -->
-            <div class="footer-brand">Abdallah Mobaid</div>
-
-            <!-- Status line -->
-            <div class="footer-status">
-                <span class="footer-status-dot" aria-hidden="true"></span>
-                <span>status: online</span>
-                <span class="footer-sep" aria-hidden="true">·</span>
-                <span>Cyberjaya, Malaysia</span>
-                <span class="footer-sep" aria-hidden="true">·</span>
-                <span>Cybersecurity Student</span>
-            </div>
-
-            <!-- Social links: GitHub, Mail, TikTok, Instagram -->
-            <div class="footer-socials" role="list" aria-label="Social links">
-
-                <a href="https://github.com/abd1llh" target="_blank" rel="noreferrer noopener" aria-label="GitHub" role="listitem" class="footer-social-link">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-          </svg>
-                    <span class="footer-social-label">GitHub</span>
-                </a>
-
-                <a href="mailto:me@abd1llh.online" aria-label="Email" role="listitem" class="footer-social-link">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-          </svg>
-                    <span class="footer-social-label">Mail</span>
-                </a>
-
-                <a href="https://tiktok.com/@abd1llh" target="_blank" rel="noreferrer noopener" aria-label="TikTok" role="listitem" class="footer-social-link">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.95a8.19 8.19 0 0 0 4.79 1.52V7.03a4.85 4.85 0 0 1-1.02-.34z"/>
-          </svg>
-                    <span class="footer-social-label">TikTok</span>
-                </a>
-
-                <a href="https://instagram.com/abd9llh" target="_blank" rel="noreferrer noopener" aria-label="Instagram" role="listitem" class="footer-social-link">
-                    <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-          </svg>
-                    <span class="footer-social-label">Instagram</span>
-                </a>
-
-            </div>
-
-            <hr class="footer-rule" aria-hidden="true">
-
-            <div class="footer-copy">
-                <span>© 2026 Abdallah Mobaid</span>
-                <span class="footer-sep" aria-hidden="true">·</span>
-                <span>built with precision</span>
-            </div>
-
-        </div>
-    </footer>
-
-    <!-- ══ TERMINAL ══ -->
-    <div id="terminal" class="terminal-window" aria-hidden="true" role="complementary" aria-label="Interactive terminal">
-        <div class="terminal-header">
-            <div class="terminal-dots" role="group" aria-label="Terminal controls">
-                <button id="close-term" class="terminal-dot" style="background:#ff5f57;" aria-label="Close terminal"></button>
-                <button id="min-term" class="terminal-dot" style="background:#febc2e;" aria-label="Minimize terminal"></button>
-                <button id="max-term" class="terminal-dot" style="background:#28c840;" aria-label="Maximize terminal"></button>
-            </div>
-            <span class="terminal-window-title" data-i18n="terminal_title">abd1llh ~ terminal</span>
-            <span style="width:36px;" aria-hidden="true"></span>
-        </div>
-        <div id="term-output" aria-live="polite" aria-atomic="false" role="log"></div>
-        <div class="terminal-input-row" id="term-form">
-            <span class="terminal-prompt" aria-hidden="true">visitor@abd1llh:~$</span>
-            <input id="term-input" class="terminal-input" type="text" inputmode="text" enterkeyhint="go" placeholder="type a command..." autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command input">
-        </div>
-    </div>
-
-    <button id="term-hint" aria-label="Open terminal" aria-expanded="false">
-    <span class="icon" aria-hidden="true">>_</span>
-    <span class="text" data-i18n="terminal_help_hint">Terminal</span>
-  </button>
-
+    <!-- JS -->
     <script type="module" src="js/core/app.js"></script>
-</body>
 
+</body>
 </html>
