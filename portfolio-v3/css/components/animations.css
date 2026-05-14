@@ -1,0 +1,59 @@
+/* ══════════════════════════════════════════════════════════
+   ANIMATIONS — Minimal & purposeful
+   Rule: max 1 looping animation (pulse-dot), rest are
+   one-shot entry animations triggered by IntersectionObserver
+   ══════════════════════════════════════════════════════════ */
+
+/* ─── Entry animations (triggered via JS / .is-visible class) ─── */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for children */
+.reveal-stagger > * { opacity: 0; transform: translateY(12px); }
+.reveal-stagger.is-visible > *:nth-child(1) { animation: revealUp 0.45s 0.00s cubic-bezier(0.22,1,0.36,1) forwards; }
+.reveal-stagger.is-visible > *:nth-child(2) { animation: revealUp 0.45s 0.07s cubic-bezier(0.22,1,0.36,1) forwards; }
+.reveal-stagger.is-visible > *:nth-child(3) { animation: revealUp 0.45s 0.14s cubic-bezier(0.22,1,0.36,1) forwards; }
+.reveal-stagger.is-visible > *:nth-child(4) { animation: revealUp 0.45s 0.21s cubic-bezier(0.22,1,0.36,1) forwards; }
+.reveal-stagger.is-visible > *:nth-child(5) { animation: revealUp 0.45s 0.28s cubic-bezier(0.22,1,0.36,1) forwards; }
+.reveal-stagger.is-visible > *:nth-child(6) { animation: revealUp 0.45s 0.35s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+@keyframes revealUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── Single looping animation: status dot ─── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.35; }
+}
+
+/* ─── Page boot fade-out ─── */
+.boot-screen { transition: opacity 0.35s ease; }
+body.loaded .boot-screen { opacity: 0; pointer-events: none; }
+
+/* ─── Smooth section transitions ─── */
+section, footer {
+  transition: background-color 0.25s ease;
+}
+
+/* ─── Reduce motion: respect OS setting ─── */
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-stagger > * {
+    transition: none !important;
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .badge-dot { animation: none !important; }
+  .status-dot { animation: none !important; }
+}

@@ -1,0 +1,252 @@
+/* ══════════════════════════════════════════════════════════
+   DESIGN TOKENS & GLOBALS
+   Built on an 8-point spacing grid
+   ══════════════════════════════════════════════════════════ */
+
+/* ─── Dark Theme (default) ─── */
+:root {
+  /* ── Background scale ── */
+  --bg:            #080808;
+  --bg-2:          #0c0c0c;
+  --panel:         #101010;
+  --panel-2:       #141414;
+
+  /* ── Borders ── */
+  --border:        #1c1c1c;
+  --border-mid:    #272727;
+  --border-strong: #353535;
+
+  /* ── Text scale ── */
+  --text:          #efefef;
+  --text-2:        #a8a8a8;
+  --muted:         #686868;
+  --muted-2:       #454545;
+
+  /* ── Brand ── */
+  --green:         #00d95f;
+  --green-dim:     rgba(0, 217, 95, 0.06);
+  --green-glow:    rgba(0, 217, 95, 0.18);
+  --red:           #ff4455;
+  --amber:         #f5a623;
+  --blue:          #4499ff;
+
+  /* ── 8-point Spacing ── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  24px;
+  --sp-6:  32px;
+  --sp-7:  48px;
+  --sp-8:  64px;
+  --sp-9:  96px;
+  --sp-10: 128px;
+
+  /* ── Radii ── */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-full: 999px;
+
+  /* ── Shadows (GPU-friendly, no blur overdose) ── */
+  --shadow-sm: 0 1px 4px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.6);
+  --shadow-lg: 0 12px 40px rgba(0,0,0,0.7);
+
+  /* ── Layout ── */
+  --max-w:      800px;
+  --max-w-wide: 1040px;
+  --nav-h:      60px;
+
+  /* ── Component tokens ── */
+  --nav-bg:         rgba(8, 8, 8, 0.92);
+  --card-bg:        #101010;
+  --tag-bg:         #0d0d0d;
+  --tag-border:     #1e1e1e;
+  --soon-bg:        #0c0c0c;
+  --footer-bg:      #060606;
+  --menu-bg:        #080808;
+  --section-border: #131313;
+
+  /* ── Viewport (updated by JS) ── */
+  --app-height:      100svh;
+  --keyboard-offset: 0px;
+  --safe-top:        0px;
+}
+
+/* ─── Light Theme ─── */
+[data-theme="light"] {
+  --bg:            #f3f3ee;
+  --bg-2:          #ececea;
+  --panel:         #ffffff;
+  --panel-2:       #f7f7f4;
+  --border:        #e0e0d8;
+  --border-mid:    #d0d0c8;
+  --border-strong: #bebeb4;
+  --text:          #111111;
+  --text-2:        #444444;
+  --muted:         #686868;
+  --muted-2:       #999999;
+  --green:         #00943f;
+  --green-dim:     rgba(0, 148, 63, 0.06);
+  --green-glow:    rgba(0, 148, 63, 0.14);
+  --red:           #cc2233;
+  --amber:         #b37800;
+  --shadow-sm:     0 1px 4px rgba(0,0,0,0.06);
+  --shadow-md:     0 4px 16px rgba(0,0,0,0.08);
+  --shadow-lg:     0 12px 40px rgba(0,0,0,0.10);
+  --nav-bg:        rgba(243, 243, 238, 0.95);
+  --card-bg:       #ffffff;
+  --tag-bg:        #f0f0eb;
+  --tag-border:    #dcdcd4;
+  --soon-bg:       #f8f8f4;
+  --footer-bg:     #ececea;
+  --menu-bg:       #f3f3ee;
+  --section-border: #e0e0d8;
+}
+
+/* ─── Reset ─── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
+  /* Use small viewport for initial to avoid layout jumps */
+  height: 100%;
+}
+
+body {
+  background-color: var(--bg);
+  /* Single top glow — GPU composited */
+  background-image: radial-gradient(
+    ellipse 55% 25% at 50% 0%,
+    var(--green-dim) 0%,
+    transparent 100%
+  );
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-ui);
+  min-height: 100dvh;
+  overflow-x: hidden;
+  /* Enable momentum scrolling on iOS */
+  -webkit-overflow-scrolling: touch;
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+/* ─── Accessibility ─── */
+.skip-link {
+  position: absolute;
+  top: -120%;
+  left: var(--sp-4);
+  background: var(--green);
+  color: #000;
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-sm);
+  font-weight: var(--weight-bold);
+  font-size: 13px;
+  z-index: 9999999;
+  text-decoration: none;
+}
+.skip-link:focus { top: var(--sp-4); }
+
+/* Global focus ring */
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 3px;
+  border-radius: var(--r-sm);
+}
+
+/* ─── Common ─── */
+a { text-decoration: none; color: inherit; transition: color 0.15s ease; }
+img { max-width: 100%; display: block; height: auto; }
+button, input { font: inherit; }
+button { touch-action: manipulation; cursor: pointer; border: none; background: none; }
+
+::selection { background: rgba(0, 200, 80, 0.18); }
+
+/* ─── Buttons ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 13px 28px;
+  border-radius: var(--r-full);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-ui);
+  background: var(--green);
+  color: #000;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  /* Minimum touch target */
+  min-height: 48px;
+  min-width: 48px;
+  /* GPU composited transitions */
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  will-change: transform;
+}
+.btn-primary:hover { opacity: 0.86; transform: translateY(-1px); }
+.btn-primary:active { opacity: 1; transform: translateY(0); }
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-2);
+  padding: 12px 26px;
+  border-radius: var(--r-full);
+  font-size: var(--text-base);
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-ui);
+  border: 1px solid var(--border-strong);
+  color: var(--text-2);
+  background: transparent;
+  text-decoration: none;
+  min-height: 48px;
+  min-width: 48px;
+  transition: border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  will-change: transform;
+}
+.btn-secondary:hover {
+  border-color: var(--green);
+  color: var(--green);
+  transform: translateY(-1px);
+}
+.btn-secondary:active { transform: translateY(0); }
+
+/* ─── Page entry fade (replaces boot screen) ─── */
+.page-fade {
+  position: fixed; inset: 0; z-index: 1000000;
+  background: var(--bg);
+  pointer-events: none;
+  animation: pageFadeOut 0.45s cubic-bezier(0.4, 0, 0.2, 1) 0.05s forwards;
+}
+@keyframes pageFadeOut {
+  0%   { opacity: 1; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* ─── Section structure ─── */
+section h2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--weight-bold);
+  line-height: var(--leading-snug);
+  letter-spacing: var(--tracking-tight);
+  text-align: center;
+  margin-bottom: var(--sp-2);
+}
+.section-sub {
+  color: var(--muted);
+  font-size: var(--text-sm);
+  text-align: center;
+  margin-bottom: var(--sp-7);
+  line-height: var(--leading-relaxed);
+}
+
+html[dir="rtl"] section h2 { letter-spacing: 0; }

@@ -1,0 +1,65 @@
+/* ─── Full-screen Menu Overlay ─── */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--menu-bg);
+  z-index: 890;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-4);
+  padding: var(--sp-9) var(--sp-5);
+  padding-top: calc(var(--nav-h) + var(--sp-7));
+  padding-bottom: calc(var(--sp-7) + env(safe-area-inset-bottom, 0px));
+  overflow-y: auto;
+}
+.menu-overlay.open { display: flex; }
+
+/* Override nav sticky inside overlay */
+.menu-overlay nav {
+  position: static !important;
+  height: auto !important;
+  background: transparent !important;
+  backdrop-filter: none !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-4);
+  z-index: auto !important;
+}
+
+.menu-overlay a.nav-link {
+  font-size: clamp(22px, 5vw, 30px);
+  font-weight: var(--weight-bold);
+  color: var(--text-2);
+  letter-spacing: var(--tracking-tight);
+  text-decoration: none;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-sm);
+  transition: color 0.15s ease;
+}
+.menu-overlay a.nav-link:hover,
+.menu-overlay a.nav-link:focus-visible { color: var(--green); }
+
+html[dir="rtl"] .menu-overlay a.nav-link {
+  font-family: var(--font-ar);
+  letter-spacing: 0;
+}
+
+.menu-bottom {
+  position: absolute;
+  bottom: calc(var(--sp-6) + env(safe-area-inset-bottom, 0px));
+  left: var(--sp-5);
+  right: var(--sp-5);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--muted-2);
+  line-height: 1.8;
+}

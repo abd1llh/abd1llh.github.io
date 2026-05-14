@@ -1,0 +1,45 @@
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE UTILITIES
+   Mobile-first breakpoints:
+   · xs:  < 480px  (small phones)
+   · sm:  480–640  (large phones)
+   · md:  640–768  (small tablets)
+   · lg:  768–1024 (tablets / small desktop)
+   · xl: 1024+     (desktop)
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Tablet adjustments ── */
+@media (max-width: 768px) {
+  nav { padding: 0 var(--sp-4); }
+}
+
+/* ── Safe area bottom for iOS home indicator ── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  #term-hint {
+    bottom: calc(var(--sp-5) + env(safe-area-inset-bottom));
+  }
+}
+
+/* ── Reduce animations on low-power devices ── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── High-contrast mode ── */
+@media (forced-colors: active) {
+  .btn-primary, .btn-secondary,
+  .project-card, .skill-item,
+  .cert-card { border: 2px solid ButtonText; }
+  .badge-dot, .status-dot { forced-color-adjust: none; }
+}
+
+/* ── Print ── */
+@media print {
+  nav, footer, #term-hint, #terminal,
+  .hero-buttons, .hero-stats { display: none !important; }
+  body { background: #fff !important; color: #000 !important; }
+  .project-card, .about-card { border: 1px solid #ccc !important; }
+}
