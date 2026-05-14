@@ -1,0 +1,29 @@
+name: Deploy My Website
+
+# متى يعمل هذا السكريبت؟
+on:
+  push:
+    branches: [ "main" ] # سيعمل فقط عندما ترفع كود لفرع main
+
+jobs:
+  deploy:
+    # يخبر GitHub باستخدام السيرفر الخاص بك (الذي ربطناه سابقاً)
+    runs-on: self-hosted 
+    
+    steps:
+      # الخطوة 1: سحب الكود من GitHub إلى السيرفر
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # الخطوة 2: بناء وتشغيل الموقع باستخدام Docker
+      - name: Build and Start Container
+        run: |
+          # بناء صورة للموقع
+          docker build -t my-website-image .
+          
+          # حذف الحاوية القديمة إذا كانت موجودة (عشان ما يحصل تعارض)
+          docker stop my-website-container || true
+          docker rm my-website-container || true
+          
+          # تشغيل الموقع الجديد
+          docker run -d --name my-website-container -p 80:80 my-website-image
