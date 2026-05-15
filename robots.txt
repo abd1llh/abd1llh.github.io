@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abd1llh.online/sitemap.xml

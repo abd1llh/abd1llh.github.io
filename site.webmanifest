@@ -1,0 +1,13 @@
+{
+    "name": "Abdallah Mobaid",
+    "short_name": "abd1llh",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0d1117",
+    "theme_color": "#0d1117",
+    "icons": [{
+        "src": "/assets/images/profile.png",
+        "sizes": "512x512",
+        "type": "image/png"
+    }]
+}
