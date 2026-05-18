@@ -1,29 +1,29 @@
 const COMMAND_DATA = {
-  en: {
-    whoami: `Abdallah Mobaid
+    en: {
+        whoami: `Abdallah Mobaid
 Cybersecurity Student @ City University Malaysia
 Age: 19 | Syrian 🇸🇾 | Based in Cyberjaya, Malaysia`,
 
-    ls: `<span class="terminal-dir">projects/</span>
+        ls: `<span class="terminal-dir">projects/</span>
 <span class="terminal-dir">writeups/</span>
 skills.txt
 contact.txt`,
 
-    'cat skills.txt': `Python | OSINT | Cryptography
+        'cat skills.txt': `Python | OSINT | Cryptography
 SQL Injection | Web Security | API Security
 Linux | Networking | Burp Suite
 Home Lab (Proxmox + Home Assistant)`,
 
-    'cat contact.txt': `GitHub:   github.com/abd1llh
+        'cat contact.txt': `GitHub:   github.com/abd1llh
 Website:  abd1llh.online
 Telegram: @abd1llh`,
 
-    'cat projects/web-vuln-lab': `Web Vulnerability Lab
+        'cat projects/web-vuln-lab': `Web Vulnerability Lab
 Demonstrates SQL Injection attack & defense
 Stack: Python + Flask + SQLite
 Link: github.com/abd1llh/web-vuln-lab`,
 
-    neofetch: `       _         _ _ _ _     
+        neofetch: `       _         _ _ _ _     
   __ _| |__   __| / | | | |__  
  / _\` | '_ \\ / _\` | | | | '_ \\ 
 | (_| | |_) | (_| | | | | | | |
@@ -36,7 +36,7 @@ Packages: 1337 (dpkg)
 Shell:    zsh 5.9
 Goal:     Offensive Security`,
 
-    'nmap abd1llh.online': `Starting Nmap 7.93 ( https://nmap.org )
+        'nmap abd1llh.online': `Starting Nmap 7.93 ( https://nmap.org )
 Scan report for abd1llh.online (104.21.75.120)
 Host is up (0.013s latency).
 
@@ -48,51 +48,54 @@ PORT     STATE SERVICE
 
 Nmap done: 1 IP address scanned in 1.42 seconds`,
 
-    sudo: `visitor is not in the sudoers file. <span class="terminal-red terminal-strong">This incident will be reported.</span>`,
-    'sudo su': `visitor is not in the sudoers file. <span class="terminal-red terminal-strong">This incident will be reported.</span>`,
+        sudo: `visitor is not in the sudoers file. <span class="terminal-red terminal-strong">This incident will be reported.</span>`,
+        'sudo su': `visitor is not in the sudoers file. <span class="terminal-red terminal-strong">This incident will be reported.</span>`,
 
-    date: () => new Date().toLocaleString('en-GB'),
+        date: () => new Date().toLocaleString('en-GB'),
+        pwd: '~',
+        history: `Use <span class="terminal-green">↑ / ↓</span> arrow keys to navigate command history.`,
 
-    history: `Use <span class="terminal-green">↑ / ↓</span> arrow keys to navigate command history.`,
-
-    help: `Available commands:
+        help: `Available commands:
   whoami       — who am I?
   ls           — list files
   cat [file]   — read file
+  pwd          — current path
+  cd [dir]     — change directory
   neofetch     — system info
   nmap abd1llh.online
   wget cv.pdf  — download CV
   date         — current time
   clear        — clear screen
-  help         — this message`,
+  help         — this message
+  exit         — close terminal`,
 
-    clear: '__clear__',
+        clear: '__clear__',
 
-    'wget cv.pdf': `--2026-- https://abd1llh.online/cv.pdf`,
+        'wget cv.pdf': `--2026-- https://abd1llh.online/cv.pdf`,
 
-    __intro: `Welcome. Type <span class="terminal-accent">help</span> to see available commands.`,
-  },
+        __intro: `Welcome. Type <span class="terminal-accent">help</span> to see available commands.`,
+    },
 
-  ar: {
-    whoami: `عبدالله مبيض
+    ar: {
+        whoami: `عبدالله مبيض
 طالب أمن سيبراني @ City University Malaysia
 العمر: 19 | سوري 🇸🇾 | مقيم في سايبرجايا، ماليزيا`,
 
-    ls: `<span class="terminal-dir">المشاريع/</span>
+        ls: `<span class="terminal-dir">المشاريع/</span>
 <span class="terminal-dir">التقارير/</span>
 المهارات.txt
 التواصل.txt`,
 
-    'cat المهارات.txt': `Python | OSINT | تشفير
+        'cat المهارات.txt': `Python | OSINT | تشفير
 SQL Injection | أمن الويب | أمن الـ API
 Linux | شبكات | Burp Suite
 معمل منزلي (Proxmox + Home Assistant)`,
 
-    'cat التواصل.txt': `GitHub:   github.com/abd1llh
+        'cat التواصل.txt': `GitHub:   github.com/abd1llh
 الموقع:   abd1llh.online
 تيليجرام: @abd1llh`,
 
-    neofetch: `       _         _ _ _ _     
+        neofetch: `       _         _ _ _ _     
   __ _| |__   __| / | | | |__  
  / _\` | '_ \\ / _\` | | | | '_ \\ 
 | (_| | |_) | (_| | | | | | | |
@@ -105,7 +108,7 @@ Linux | شبكات | Burp Suite
 الصدفة:  zsh 5.9
 الهدف:   الأمن الهجومي`,
 
-    'nmap abd1llh.online': `بدء Nmap 7.93 ( https://nmap.org )
+        'nmap abd1llh.online': `بدء Nmap 7.93 ( https://nmap.org )
 تقرير الفحص لـ abd1llh.online (104.21.75.120)
 المضيف يعمل (زمن تأخير 0.013 ثانية).
 
@@ -117,14 +120,14 @@ PORT     STATE SERVICE
 
 انتهى الفحص: تم فحص عنوان IP واحد في 1.42 ثانية`,
 
-    sudo: `visitor ليس ضمن ملف sudoers. <span class="terminal-red terminal-strong">سيتم الإبلاغ عن هذه الحادثة.</span>`,
-    'sudo su': `visitor ليس ضمن ملف sudoers. <span class="terminal-red terminal-strong">سيتم الإبلاغ عن هذه الحادثة.</span>`,
+        sudo: `visitor ليس ضمن ملف sudoers. <span class="terminal-red terminal-strong">سيتم الإبلاغ عن هذه الحادثة.</span>`,
+        'sudo su': `visitor ليس ضمن ملف sudoers. <span class="terminal-red terminal-strong">سيتم الإبلاغ عن هذه الحادثة.</span>`,
 
-    date: () => new Date().toLocaleString('ar-SA'),
+        date: () => new Date().toLocaleString('ar-SA'),
 
-    history: `استخدم <span class="terminal-green">↑ / ↓</span> للتنقل بين الأوامر السابقة.`,
+        history: `استخدم <span class="terminal-green">↑ / ↓</span> للتنقل بين الأوامر السابقة.`,
 
-    help: `الأوامر المتاحة:
+        help: `الأوامر المتاحة:
   whoami       — من أنا؟
   ls           — عرض الملفات
   cat [ملف]   — قراءة ملف
@@ -135,69 +138,101 @@ PORT     STATE SERVICE
   clear        — مسح الشاشة
   help         — هذه القائمة`,
 
-    clear: '__clear__',
+        clear: '__clear__',
 
-    'wget cv.pdf': `--2026-- https://abd1llh.online/cv.pdf`,
+        'wget cv.pdf': `--2026-- https://abd1llh.online/cv.pdf`,
 
-    __intro: `مرحباً. اكتب <span class="terminal-accent">help</span> لعرض الأوامر المتاحة.`,
-  }
+        __intro: `مرحباً. اكتب <span class="terminal-accent">help</span> لعرض الأوامر المتاحة.`,
+    }
 };
 
 const ALIASES = {
-  en: {
-    'who am i': 'whoami',
-    'list': 'ls',
-    'clear': 'clear',
-    'help': 'help',
-  },
-  ar: {
-    'من انا': 'whoami',
-    'من أنا': 'whoami',
-    'عرض': 'ls',
-    'مساعدة': 'help',
-    'تنظيف': 'clear',
-    'مسح': 'clear',
-    'تاريخ': 'date',
-    'محتويات': 'ls',
-  }
+    en: {
+        'who am i': 'whoami',
+        'list': 'ls',
+        'clear': 'clear',
+        'help': 'help',
+    },
+    ar: {
+        'من انا': 'whoami',
+        'من أنا': 'whoami',
+        'عرض': 'ls',
+        'مساعدة': 'help',
+        'تنظيف': 'clear',
+        'مسح': 'clear',
+        'تاريخ': 'date',
+        'محتويات': 'ls',
+    }
 };
 
 function getLangBucket(lang) {
-  return COMMAND_DATA[lang] ? lang : 'en';
+    return COMMAND_DATA[lang] ? lang : 'en';
 }
 
 export function normalizeCommand(command, lang = 'en') {
-  const cleaned = command.trim().replace(/\s+/g, ' ');
-  const lower = cleaned.toLowerCase();
-  const bucket = getLangBucket(lang);
-  return ALIASES[bucket]?.[cleaned] || ALIASES[bucket]?.[lower] || cleaned;
+
+    const cleaned =
+        command.trim().replace(/\s+/g, ' ');
+
+    const lower =
+        cleaned.toLowerCase();
+
+    const bucket =
+        getLangBucket(lang);
+
+    const aliases =
+        ALIASES[bucket] || {};
+
+    return (
+        aliases[cleaned] ||
+        aliases[lower] ||
+        cleaned
+    );
 }
 
 export function getTerminalIntro(lang = 'en') {
-  return COMMAND_DATA[getLangBucket(lang)].__intro;
+    return COMMAND_DATA[getLangBucket(lang)].__intro;
 }
 
 export function getTerminalPrompt() {
-  return 'visitor@abd1llh:~$';
+    return 'visitor@abd1llh:~$';
 }
 
 export function getTerminalPlaceholder(lang = 'en') {
-  return lang === 'ar' ? 'اكتب أمراً...' : 'type a command...';
+    return lang === 'ar' ? 'اكتب أمراً...' : 'type a command...';
 }
 
 export function getHelpText(lang = 'en') {
-  return COMMAND_DATA[getLangBucket(lang)].help;
+    return COMMAND_DATA[getLangBucket(lang)].help;
 }
 
 export function getCommandResponse(command, lang = 'en') {
-  const bucket = COMMAND_DATA[getLangBucket(lang)];
-  const normalized = normalizeCommand(command, lang);
-  if (normalized === 'date') {
-    return typeof bucket.date === 'function' ? bucket.date() : bucket.date;
-  }
-  return bucket[normalized];
+    const bucket = COMMAND_DATA[getLangBucket(lang)];
+    const normalized = normalizeCommand(command, lang);
+    if (normalized === 'date') {
+        return typeof bucket.date === 'function' ? bucket.date() : bucket.date;
+    }
+    return bucket[normalized];
 }
 
 export function isKnownCommand(command, lang = 'en') {
-  return Boolean(getCommandResponse(command, lang));
+    return Boolean(getCommandResponse(command, lang));
+}
+
+export function getAllCommands(lang = 'en') {
+
+    const bucket =
+        COMMAND_DATA[lang] ?
+        lang :
+        'en';
+
+    return Object.keys(
+        COMMAND_DATA[bucket]
+    ).filter(cmd => {
+
+        return (!cmd.startsWith('__') &&
+            cmd !== 'clear'
+        );
+
+    });
 }
