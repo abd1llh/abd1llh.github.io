@@ -1,91 +1,87 @@
-import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm';
+import { apiFetch } from './api.js';
+import { getCurrentLanguage } from '../modules/language.js';
 
-const SUPABASE_URL = 'https://srtpssnpeweunscltvbr.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNydHBzc25wZXdldW5zY2x0dmJyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwODA5NDksImV4cCI6MjA5MzY1Njk0OX0.hJ20d9fhD5ixmAGciV8YLbVd3VvZBLTN3gkzdQvqS-w';
-const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
+function escapeHtml(value) {
+  return String(value)
+    .replaceAll('&', '&amp;')
+    .replaceAll('<', '&lt;')
+    .replaceAll('>', '&gt;')
+    .replaceAll('"', '&quot;')
+    .replaceAll("'", '&#39;');
+}
+
+function detectOs(userAgent) {
+  if (userAgent.includes('iPhone')) return 'iPhone (iOS)';
+  if (userAgent.includes('Android')) return 'Android';
+  if (userAgent.includes('Windows')) return 'Windows PC';
+  if (userAgent.includes('Mac OS')) return 'Macbook (macOS)';
+  return 'Unknown OS';
+}
+
+function detectBrowser(userAgent) {
+  if (userAgent.includes('Edg')) return 'Edge';
+  if (userAgent.includes('Chrome')) return 'Chrome';
+  if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) return 'Safari';
+  return 'Unknown Browser';
+}
 
 export async function initTracker() {
-  console.log('[System] Initializing Supabase Realtime Tracking...');
-
   const userAgent = navigator.userAgent;
-  let os = 'Unknown OS';
-  if (userAgent.includes('iPhone')) os = 'iPhone (iOS)';
-  else if (userAgent.includes('Android')) os = 'Android';
-  else if (userAgent.includes('Windows')) os = 'Windows PC';
-  else if (userAgent.includes('Mac OS')) os = 'Macbook (macOS)';
+  const os = detectOs(userAgent);
+  const browser = detectBrowser(userAgent);
 
-  let browser = 'Unknown Browser';
-  if (userAgent.includes('Edg')) browser = 'Edge';
-  else if (userAgent.includes('Chrome')) browser = 'Chrome';
-  else if (userAgent.includes('Safari') && !userAgent.includes('Chrome')) browser = 'Safari';
-
-  let ip = 'Hidden';
   try {
-    const response = await fetch('https://api.ipify.org?format=json');
-    const data = await response.json();
-    ip = data.ip;
+    if (!sessionStorage.getItem('target_recorded')) {
+      await apiFetch('/visits', {
+        method: 'POST',
+        body: JSON.stringify({
+          os,
+          browser,
+          locale: getCurrentLanguage(),
+          path: window.location.pathname,
+        }),
+      });
+      sessionStorage.setItem('target_recorded', 'true');
+    }
   } catch (error) {
-    console.warn('IP lookup failed:', error);
+    console.warn('[analytics] visit not recorded:', error.message);
   }
-
-  await recordVisit(ip, os, browser);
 
   if (document.getElementById('live-visitors-table')) {
     loadActiveTargets();
-    listenForNewTargets();
   }
 }
 
-async function recordVisit(ip, os, browser) {
-  if (sessionStorage.getItem('target_recorded')) return;
-
-  const { error } = await supabase
-    .from('live_targets')
-    .insert([{ ip, os, browser, status: 'online' }]);
-
-  if (!error) sessionStorage.setItem('target_recorded', 'true');
-  else console.error('Error recording visit:', error);
-}
-
 async function loadActiveTargets() {
-  const { data } = await supabase
-    .from('live_targets')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(10);
-
   const tableBody = document.getElementById('live-visitors-table');
   if (!tableBody) return;
 
-  tableBody.innerHTML = '';
-  (data || []).forEach((target) => {
-    tableBody.innerHTML += createRow(target);
-  });
-}
-
-function listenForNewTargets() {
-  supabase
-    .channel('custom-all-channel')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'live_targets' }, (payload) => {
-      const tableBody = document.getElementById('live-visitors-table');
-      if (!tableBody) return;
-      tableBody.innerHTML = createRow(payload.new) + tableBody.innerHTML;
-    })
-    .subscribe();
+  try {
+    const data = await apiFetch('/admin/visitors');
+    tableBody.replaceChildren();
+    (data.visitors || []).forEach((target) => {
+      tableBody.appendChild(createRow(target));
+    });
+  } catch {
+    tableBody.innerHTML = '<tr><td colspan="5">Login required or API unavailable.</td></tr>';
+  }
 }
 
 function createRow(target) {
+  const tr = document.createElement('tr');
+  tr.className = 'table-row';
+
   const time = target.created_at
     ? new Date(target.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     : '--:--';
 
-  return `
-    <tr class="table-row">
-      <td>${target.ip || '-'}</td>
-      <td>${target.os || '-'}</td>
-      <td>${target.browser || '-'}</td>
-      <td>Since ${time}</td>
-      <td><span class="status-pill">${target.status || 'online'}</span></td>
-    </tr>
+  tr.innerHTML = `
+    <td>${escapeHtml(target.ip || '-')}</td>
+    <td>${escapeHtml(target.os || '-')}</td>
+    <td>${escapeHtml(target.browser || '-')}</td>
+    <td>Since ${escapeHtml(time)}</td>
+    <td><span class="status-pill">${escapeHtml(target.status || 'online')}</span></td>
   `;
+
+  return tr;
 }

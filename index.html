@@ -198,7 +198,7 @@
             <a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a>
             <a href="#certifications" class="nav-link" data-i18n="nav_certifications">Certifications</a>
             <a href="https://github.com/abd1llh" class="nav-link" target="_blank" rel="noreferrer noopener" data-i18n="nav_github">GitHub</a>
-            <a href="mailto:me@abd1llh.online" class="nav-link" data-i18n="nav_contact">Contact</a>
+            <a href="#contact" class="nav-link" data-i18n="nav_contact">Contact</a>
         </nav>
         <div class="menu-bottom" data-base-copy="© 2026 abd1llh">
             <span style="color:var(--green);font-weight:bold;" aria-hidden="true">>_</span>
@@ -224,7 +224,7 @@
 
             <div class="hero-buttons reveal">
                 <a href="#projects" class="btn-primary" data-i18n="btn_projects">View Projects</a>
-                <a href="mailto:me@abd1llh.online" class="btn-secondary" data-i18n="btn_contact">Contact Me →</a>
+                <a href="#contact" class="btn-secondary" data-i18n="btn_contact">Contact Me →</a>
             </div>
 
             <div class="hero-stats reveal" aria-label="Quick stats">
@@ -405,6 +405,36 @@
                             <div class="cert-status cert-status--planned" data-i18n="cert_status_goal">Goal</div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- Contact -->
+            <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+                <h2 id="contact-heading" data-i18n="contact_heading">Get in Touch</h2>
+                <p class="section-sub" data-i18n="contact_sub">Have a project, question, or collaboration in mind? Send a message.</p>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <p data-i18n="contact_info">Prefer email? Reach me directly — I usually reply within 48 hours.</p>
+                        <a href="mailto:me@abd1llh.online">me@abd1llh.online</a>
+                    </div>
+
+                    <form id="contact-form" class="contact-form" novalidate>
+                        <label>
+                            <span data-i18n="contact_name_label">Name</span>
+                            <input type="text" name="name" required maxlength="120" autocomplete="name">
+                        </label>
+                        <label>
+                            <span data-i18n="contact_email_label">Email</span>
+                            <input type="email" name="email" required maxlength="200" autocomplete="email">
+                        </label>
+                        <label>
+                            <span data-i18n="contact_message_label">Message</span>
+                            <textarea name="message" required maxlength="5000"></textarea>
+                        </label>
+                        <button type="submit" class="btn-primary" data-i18n="contact_submit">Send Message</button>
+                        <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+                    </form>
                 </div>
             </section>
 

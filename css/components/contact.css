@@ -1,0 +1,113 @@
+.contact-section {
+  max-width: var(--max-width, 1100px);
+  margin: 0 auto;
+  padding: 0 var(--sp-6) var(--sp-16);
+}
+
+.contact-section h2 {
+  margin-bottom: var(--sp-2);
+}
+
+.contact-section .section-sub {
+  margin-bottom: var(--sp-8);
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: var(--sp-8);
+  align-items: start;
+}
+
+.contact-info {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8);
+}
+
+.contact-info p {
+  color: var(--muted);
+  line-height: 1.7;
+  font-size: 14px;
+  margin-bottom: var(--sp-6);
+}
+
+.contact-info a {
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.contact-form {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.contact-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12px;
+  color: var(--muted-2);
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contact-form input,
+.contact-form textarea {
+  background: var(--bg);
+  border: 1px solid var(--border-mid);
+  border-radius: var(--r-sm);
+  color: var(--text);
+  padding: 12px 14px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--green);
+}
+
+.contact-form textarea {
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contact-form button {
+  align-self: flex-start;
+  margin-top: var(--sp-2);
+}
+
+.contact-status {
+  font-size: 13px;
+  font-family: var(--font-mono);
+  min-height: 1.2em;
+}
+
+.contact-status--pending { color: var(--amber); }
+.contact-status--success { color: var(--green); }
+.contact-status--error { color: var(--red, #ff4444); }
+
+html[dir="rtl"] .contact-grid {
+  direction: rtl;
+}
+
+html[dir="rtl"] .contact-form button {
+  align-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -2,6 +2,8 @@ import { initMenu }     from '../modules/menu.js';
 import { initLanguage } from '../modules/language.js';
 import { initTerminal } from '../modules/terminal.js';
 import { initReveal }   from '../modules/reveal.js';
+import { initContactForm } from '../modules/contact.js';
+import { initTracker } from '../services/analytics.js';
 
 /* ══════════════════════════════════════════════════════════
    VIEWPORT SYNC
@@ -139,6 +141,8 @@ document.addEventListener('DOMContentLoaded', async () => {
   initReveal();
   await initLanguage();
   initTerminal();
+  initContactForm();
+  initTracker();
 
   document.body.classList.add('loaded');
   initScrollSpy();

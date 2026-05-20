@@ -68,5 +68,16 @@
   "writeup3_cat": "أمن الـ API",
   "writeup3_title": "بناء وكسر REST API — منظور أمني",
   "writeup3_desc": "بناء API ضعيف عمداً (مصادقة ناقصة، بدون rate limit، IDOR) ثم إصلاح كل ثغرة بشكل منهجي.",
-  "writeup3_link": "[ قريباً ]"
+  "writeup3_link": "[ قريباً ]",
+  "writeups_empty": "لا توجد تقارير منشورة بعد.",
+  "contact_heading": "تواصل معي",
+  "contact_sub": "لديك مشروع أو سؤال أو تعاون؟ أرسل رسالة.",
+  "contact_info": "تفضّل البريد؟ راسلني مباشرة — عادة أرد خلال 48 ساعة.",
+  "contact_name_label": "الاسم",
+  "contact_email_label": "البريد",
+  "contact_message_label": "الرسالة",
+  "contact_submit": "إرسال الرسالة",
+  "contact_sending": "جارٍ الإرسال...",
+  "contact_success": "تم إرسال الرسالة. سأتواصل معك قريباً.",
+  "contact_error": "تعذّر الإرسال. جرّب البريد المباشر."
 }

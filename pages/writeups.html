@@ -116,9 +116,9 @@
     <p data-i18n="writeups_desc">Detailed analysis of vulnerabilities, CTF solutions, and deep dives into offensive security concepts.</p>
   </header>
 
-  <section class="writeups-container">
+  <section class="writeups-container" id="writeups-list">
 
-    <article class="writeup-card">
+    <article class="writeup-card writeups-fallback">
       <div class="writeup-meta">
         <span data-i18n="writeup1_date">May 2026</span>
         <span class="cat" data-i18n="writeup1_cat">Web Security</span>
@@ -152,6 +152,7 @@
 
   <script type="module">
     import { initLanguage } from '/js/modules/language.js';
+    import { loadWriteupsPage } from '/js/modules/writeups.js';
 
     function initTheme() {
       const saved = localStorage.getItem('site_theme') || 'dark';
@@ -171,6 +172,7 @@
     document.addEventListener('DOMContentLoaded', async () => {
       initTheme();
       await initLanguage();
+      await loadWriteupsPage();
     });
   </script>
 </body>

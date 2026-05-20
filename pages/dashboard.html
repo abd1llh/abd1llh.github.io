@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Command Center | Dashboard</title>
-    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <style>
         #auth-gate {
             position: fixed;
@@ -303,43 +303,45 @@
 
     <div id="dashboard-content">
         <nav style="margin-bottom: 32px; padding: 0; background: none; border: none; position: static;">
-            <a href="../index.html" class="return-home">← Return Home</a>
+            <a href="/en/" class="return-home" data-locale-href="/">← Return Home</a>
+            <button id="logout-btn" class="auth-btn" type="button" style="width:auto;margin-left:12px;">Logout</button>
         </nav>
 
         <div class="dash-header">
             <h1>Command Center</h1>
-            <div class="status-badge">● SYSTEM SECURE</div>
+            <div class="status-badge">● LIVE DATA</div>
         </div>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <span class="title">Total Visitors</span>
-                <span class="value">1,337</span>
-                <span class="trend good">↑ 12% this week</span>
+                <span class="value" id="stat-visits">0</span>
             </div>
             <div class="stat-card">
-                <span class="title">Blocked Attacks</span>
-                <span class="value">42</span>
-                <span class="trend good">Last 24 hours</span>
+                <span class="title">Last 24 Hours</span>
+                <span class="value" id="stat-visits-24h">0</span>
             </div>
             <div class="stat-card">
-                <span class="title">Active Services</span>
-                <span class="value">8 / 8</span>
-                <span class="trend good">100% Uptime</span>
+                <span class="title">Contact Messages</span>
+                <span class="value" id="stat-contacts">0</span>
+            </div>
+            <div class="stat-card">
+                <span class="title">Writeups</span>
+                <span class="value" id="stat-writeups">0</span>
             </div>
         </div>
 
         <div class="panel panel-green" style="margin-bottom: 30px;">
-            <h3 class="green">🔴 Live Targets (Active Sessions)</h3>
+            <h3 class="green">Recent Visitors</h3>
             <div class="table-scroll">
                 <table class="live-table">
                     <thead>
                         <tr>
-                            <th>IP Address</th>
-                            <th>Device / OS</th>
+                            <th>IP</th>
+                            <th>OS</th>
                             <th>Browser</th>
-                            <th>Time Online</th>
-                            <th>Status</th>
+                            <th>Page</th>
+                            <th>Time</th>
                         </tr>
                     </thead>
                     <tbody id="live-visitors-table"></tbody>
@@ -348,74 +350,19 @@
         </div>
 
         <div class="panel">
-            <h3>System Logs</h3>
-            <div class="log-item">
-                <span class="log-time">[ 10:45:02 ]</span>
-                <span class="log-action" style="color: #00ff64;">Successful login from trusted IP (Admin)</span>
-            </div>
-            <div class="log-item">
-                <span class="log-time">[ 09:12:15 ]</span>
-                <span class="log-action log-alert">Failed SSH attempt from 192.168.1.45 (Blocked)</span>
-            </div>
-            <div class="log-item">
-                <span class="log-time">[ 08:00:00 ]</span>
-                <span class="log-action">Daily automated backup completed successfully.</span>
-            </div>
+            <h3>Contact Inbox</h3>
+            <div id="contacts-list"></div>
         </div>
     </div>
 
-    <script>
-        const correctHash =
-            '03ac674216f3e15c761ee1a5e255f067953623c8b388b4459e13f978d7c846f4';
-
-        async function sha256(text) {
-            const encoder = new TextEncoder();
-            const data = encoder.encode(text);
-
-            const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-
-            return Array.from(new Uint8Array(hashBuffer))
-                .map(b => b.toString(16).padStart(2, '0'))
-                .join('');
-        }
-
-        async function checkAuth() {
-
-            const passcode =
-                document.getElementById('passcode').value;
-
-            const errorMsg =
-                document.getElementById('auth-error');
-
-            const hashed =
-                await sha256(passcode);
-
-            if (hashed === correctHash) {
-
-                document.getElementById('auth-gate').style.display = 'none';
-
-                document.getElementById('dashboard-content').style.display = 'block';
-
-            } else {
-
-                errorMsg.style.display = 'block';
-            }
-        }
-
-        document.getElementById('auth-btn')
-            .addEventListener('click', checkAuth);
-
-        document.getElementById('passcode')
-            .addEventListener('keydown', function(e) {
-
-                if (e.key === 'Enter') {
-                    checkAuth();
-                }
-            });
-    </script>
-
     <script type="module">
-        import { initTracker } from '../js/services/analytics.js'; document.addEventListener('DOMContentLoaded', () => { initTracker(); });
+        import { initDashboard } from '/js/pages/dashboard.js';
+        import { initLanguage } from '/js/modules/language.js';
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            await initLanguage();
+            await initDashboard();
+        });
     </script>
 </body>
 
