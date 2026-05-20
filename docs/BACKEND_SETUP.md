@@ -69,3 +69,19 @@ Login with `ADMIN_PASSWORD` from `.env` (not `1234` anymore).
 In Supabase **Table Editor → writeups**, insert rows or change `status` to `published`.
 
 Fields: `slug`, `title_en`, `title_ar`, `excerpt_en`, `excerpt_ar`, `category_en`, `category_ar`, `status`, `published_at`.
+
+cd /home/deployer/actions-runner/_work/abd1llh.github.io/abd1llh.github.io
+
+git pull origin main
+
+docker build -t my-website-image .
+
+docker stop my-website-container
+
+docker rm my-website-container
+
+docker run -d \
+  --name my-website-container \
+  -p 80:80 \
+  --env-file .env \
+  my-website-image
