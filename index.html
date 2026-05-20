@@ -181,7 +181,7 @@
 
         <div class="nav-actions">
 
-
+            <button id="lang-switch" class="lang-switch" type="button" aria-label="Switch language">عربي</button>
 
             <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
                 <span></span><span></span>
@@ -409,7 +409,225 @@
         </section>
 
         <!-- Contact -->
+        <section id="contact" class="contact-section" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" data-i18n="contact_heading">Get in Touch</h2>
+            <p class="section-sub" data-i18n="contact_sub">Have a project, question, or collaboration in mind? Send a message.</p>
 
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <p data-i18n="contact_info">Prefer email? Reach me directly — I usually reply within 48 hours.</p>
+                    <a href="mailto:me@abd1llh.online" class="contact-email">me@abd1llh.online</a>
+                </div>
+
+                <form id="contact-form" class="contact-form" novalidate autocomplete="off">
+                    <div class="form-group">
+                        <label for="contact-name">
+                            <span data-i18n="contact_name_label">Name</span>
+                        </label>
+                        <input id="contact-name" type="text" name="name" required maxlength="120" autocomplete="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">
+                            <span data-i18n="contact_email_label">Email</span>
+                        </label>
+                        <input id="contact-email" type="email" name="email" required maxlength="200" autocomplete="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">
+                            <span data-i18n="contact_message_label">Message</span>
+                        </label>
+                        <textarea id="contact-message" name="message" required maxlength="5000"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary" data-i18n="contact_submit">Send Message</button>
+                    <p id="contact-status" class="contact-status" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+
+        <style>
+            /* Fix for contact section grid/layout */
+            .contact-section {
+                padding: 3rem 1rem 4rem 1rem;
+                background: var(--bg-secondary, #181a21);
+                border-radius: 1.2rem;
+                box-shadow: 0 4px 32px 0 #0003, 0 1.5px 0 0 #2226 inset;
+                margin: 2rem auto 0 auto;
+                max-width: 830px;
+            }
+
+            .contact-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 2.4rem;
+                justify-content: space-between;
+                align-items: flex-start;
+            }
+
+            .contact-info {
+                flex: 1 1 220px;
+                min-width: 188px;
+                padding-right: 2rem;
+                font-size: 1.075rem;
+                color: var(--text-secondary, #ced6e0);
+            }
+
+            .contact-email {
+                display: inline-block;
+                margin-top: 0.5em;
+                font-weight: 600;
+                color: var(--accent, #4ce698);
+                text-decoration: none;
+                word-break: break-all;
+            }
+
+            .contact-email:hover,
+            .contact-email:focus {
+                text-decoration: underline;
+            }
+
+            .contact-form {
+                flex: 2 1 340px;
+                min-width: 240px;
+                background: var(--bg-primary, #14161b);
+                padding: 2rem 1.5rem 1.5rem 1.5rem;
+                border-radius: 0.9rem;
+                box-shadow: 0 1.5px 0 0 #262a2c inset;
+                display: flex;
+                flex-direction: column;
+                gap: 1.15rem;
+            }
+
+            .contact-form .form-group {
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .contact-form label span {
+                font-weight: 500;
+                color: var(--text, #e4e7ef);
+                margin-bottom: 0.1em;
+            }
+
+            .contact-form input,
+            .contact-form textarea {
+                font-family: inherit;
+                font-size: 1em;
+                padding: 0.65em 0.85em;
+                border: 1.6px solid var(--input-border, #283049);
+                border-radius: 0.5em;
+                background: var(--input-bg, #11131a);
+                color: var(--text, #e4e7ef);
+                transition: border 0.18s, background 0.2s;
+                resize: none;
+                outline: none;
+            }
+
+            .contact-form input:focus,
+            .contact-form textarea:focus {
+                border-color: var(--accent, #4ce698);
+                background: var(--input-bg-focus, #161a23);
+            }
+
+            .contact-form textarea {
+                min-height: 90px;
+                max-height: 200px;
+            }
+
+            .contact-form .btn-primary {
+                align-self: flex-end;
+                margin-top: 0.3rem;
+                padding: 0.7em 2.2em;
+                font-size: 1.1em;
+                border-radius: 0.5em;
+            }
+
+            .contact-status {
+                margin-top: 0.4rem;
+                font-size: 1em;
+                color: var(--accent, #4ce698);
+                min-height: 1.4em;
+            }
+
+            @media (max-width: 800px) {
+                .contact-grid {
+                    flex-direction: column;
+                    gap: 1.2rem;
+                }
+
+                .contact-info,
+                .contact-form {
+                    min-width: 0;
+                    padding-right: 0;
+                }
+            }
+        </style>
+        <script>
+            // Fix: JS for contact form submission with design feedback
+            document.addEventListener('DOMContentLoaded', function() {
+                const form = document.getElementById('contact-form');
+                const statusEl = document.getElementById('contact-status');
+
+                function setStatus(msg, isError = false) {
+                    statusEl.textContent = msg;
+                    statusEl.style.color = isError ? '#e26666' : '';
+                }
+
+                form.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+
+                    setStatus('');
+                    const name = form.name.value.trim();
+                    const email = form.email.value.trim();
+                    const message = form.message.value.trim();
+
+                    if (!name || !email || !message) {
+                        setStatus('Please fill in all fields.', true);
+                        return;
+                    }
+                    // Basic validation
+                    if (!/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+                        setStatus('Invalid email address.', true);
+                        form.email.focus();
+                        return;
+                    }
+                    setStatus('Sending...', false);
+
+                    try {
+                        const res = await fetch('/api/contact', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                name,
+                                email,
+                                message
+                            })
+                        });
+                        if (res.ok) {
+                            form.reset();
+                            setStatus('Message sent successfully! I will reply soon.', false);
+                        } else {
+                            const data = await res.json().catch(() => ({}));
+                            setStatus(data ? .error || 'Server error, please try again later.', true);
+                        }
+                    } catch (err) {
+                        setStatus('Network error, please check your connection and try again.', true);
+                    }
+                });
+
+                // Focus effect for input/textarea container
+                Array.from(form.querySelectorAll('input, textarea')).forEach(input => {
+                    input.addEventListener('focus', (e) => {
+                        input.parentElement.classList.add('focused');
+                    });
+                    input.addEventListener('blur', (e) => {
+                        input.parentElement.classList.remove('focused');
+                    });
+                });
+            });
+        </script>
 
     </main>
 
