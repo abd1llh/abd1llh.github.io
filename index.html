@@ -29,13 +29,16 @@
 
     <meta name="apple-mobile-web-app-capable" content="yes">
 
-    <link rel="canonical" href="https://abd1llh.online/">
+    <link rel="canonical" href="https://abd1llh.online/en/">
+    <link rel="alternate" hreflang="en" href="https://abd1llh.online/en/" data-hreflang="en">
+    <link rel="alternate" hreflang="ar" href="https://abd1llh.online/ar/" data-hreflang="ar">
+    <link rel="alternate" hreflang="x-default" href="https://abd1llh.online/en/" data-hreflang="x-default">
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="Abdallah Mobaid">
     <meta property="og:type" content="website">
 
-    <meta property="og:url" content="https://abd1llh.online/">
+    <meta property="og:url" content="https://abd1llh.online/en/">
 
     <meta property="og:title" content="Abdallah Mobaid | Software Engineering & Cybersecurity">
 
@@ -112,7 +115,7 @@
     <link rel="icon" href="https://abd1llh.online/assets/images/profile.png" type="image/png">
 
     <!-- CSS -->
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="/css/main.css">
     <link rel="manifest" href="/site.webmanifest">
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -168,7 +171,7 @@
     <nav role="navigation" aria-label="Main navigation">
         <a href="#" class="profile-link" aria-label="abd1llh — go to top">
             <div class="profile-badge">
-                <img src="assets/images/profile.png" alt="Abdallah Mobaid" width="32" height="32" loading="eager">
+                <img src="/assets/images/profile.png" alt="Abdallah Mobaid" width="32" height="32" loading="eager">
                 <div>
                     <div class="name">Abdallah Mobaid</div>
                     <div class="role" data-i18n="hero_role">Cybersecurity</div>
@@ -177,6 +180,8 @@
         </a>
 
         <div class="nav-actions">
+
+            <button id="lang-switch" class="lang-switch" type="button" aria-label="Switch language">عربي</button>
 
             <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
         <span></span><span></span>
@@ -189,8 +194,9 @@
         <nav aria-label="Menu links">
             <a href="#about" class="nav-link" data-i18n="nav_about">About</a>
             <a href="#projects" class="nav-link" data-i18n="nav_projects">Projects</a>
-            <a href="#skills" class="nav-link">Skills</a>
-            <a href="#certifications" class="nav-link">Certifications</a>
+            <a href="/en/pages/writeups.html" class="nav-link" data-i18n="nav_writeups" data-locale-href="/pages/writeups.html">Writeups</a>
+            <a href="#skills" class="nav-link" data-i18n="nav_skills">Skills</a>
+            <a href="#certifications" class="nav-link" data-i18n="nav_certifications">Certifications</a>
             <a href="https://github.com/abd1llh" class="nav-link" target="_blank" rel="noreferrer noopener" data-i18n="nav_github">GitHub</a>
             <a href="mailto:me@abd1llh.online" class="nav-link" data-i18n="nav_contact">Contact</a>
         </nav>
@@ -218,51 +224,45 @@
 
             <div class="hero-buttons reveal">
                 <a href="#projects" class="btn-primary" data-i18n="btn_projects">View Projects</a>
-                <a href="mailto:me@abd1llh.online" class="btn-secondary" data-i18n="nav_contact">Contact Me →</a>
+                <a href="mailto:me@abd1llh.online" class="btn-secondary" data-i18n="btn_contact">Contact Me →</a>
             </div>
 
             <div class="hero-stats reveal" aria-label="Quick stats">
                 <div class="stat">
                     <span class="stat-val">1</span>
-                    <span class="stat-label">Active Lab</span>
+                    <span class="stat-label" data-i18n="hero_stat_lab">Active Lab</span>
                 </div>
                 <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat">
                     <span class="stat-val">3+</span>
-                    <span class="stat-label">Projects</span>
+                    <span class="stat-label" data-i18n="hero_stat_projects">Projects</span>
                 </div>
                 <div class="stat-divider" aria-hidden="true"></div>
                 <div class="stat">
                     <span class="stat-val">Sem 3</span>
-                    <span class="stat-label">
-Software Engineering
-</span>
+                    <span class="stat-label" data-i18n="hero_stat_degree">Software Engineering</span>
                 </div>
             </div>
         </section>
 
-        <section class="entity-section">
-            <section class="entity-section">
-            </section>
-
-            <!-- About -->
-            <section id="about" class="about-section" aria-labelledby="about-heading">
+        <!-- About -->
+        <section id="about" class="about-section" aria-labelledby="about-heading">
                 <div class="about-card reveal">
-                    <img src="assets/images/profile.png" alt="Abdallah Mobaid — Offensive Security Student" class="about-avatar" width="68" height="68" loading="lazy">
+                    <img src="/assets/images/profile.png" alt="Abdallah Mobaid — Offensive Security Student" class="about-avatar" width="68" height="68" loading="lazy">
                     <div class="about-content">
                         <h2 id="about-heading">Abdallah Mobaid</h2>
                         <div class="about-handle" aria-label="Handle">@abd1llh</div>
                         <p data-i18n="about_desc">Software engineering student based in Cyberjaya, Malaysia, specializing in cybersecurity, offensive security, web application pentesting, and real-world security labs.</p>
                         <div class="about-positioning">
-                            <span class="positioning-label">Focus →</span>
-                            <span class="positioning-value">Web App Pentesting &amp; Home Lab Security</span>
+                            <span class="positioning-label" data-i18n="about_focus_label">Focus →</span>
+                            <span class="positioning-value" data-i18n="about_focus_value">Web App Pentesting &amp; Home Lab Security</span>
                         </div>
                         <div class="about-badges" role="list" aria-label="Current activities">
-                            <span class="about-badge" role="listitem">Semester 3</span>
-                            <span class="about-badge" role="listitem">Proxmox Lab</span>
-                            <span class="about-badge" role="listitem">Home Assistant</span>
-                            <span class="about-badge" role="listitem">Bug Bounty</span>
-                            <span class="about-badge" role="listitem">HTB / THM</span>
+                            <span class="about-badge" role="listitem" data-i18n="badge_semester">Semester 3</span>
+                            <span class="about-badge" role="listitem" data-i18n="badge_proxmox">Proxmox Lab</span>
+                            <span class="about-badge" role="listitem" data-i18n="badge_ha">Home Assistant</span>
+                            <span class="about-badge" role="listitem" data-i18n="badge_bugbounty">Bug Bounty</span>
+                            <span class="about-badge" role="listitem" data-i18n="badge_htb">HTB / THM</span>
                         </div>
                     </div>
                 </div>
@@ -317,7 +317,7 @@ Software Engineering
                             <div class="project-icon" aria-hidden="true">🔐</div>
                             <div class="project-status project-status--live">
                                 <span class="status-dot" aria-hidden="true"></span>
-                                <span>Live on GitHub</span>
+                                <span data-i18n="project_live">Live on GitHub</span>
                             </div>
                         </div>
                         <h3 id="proj1-title" data-i18n="project1_title">Web Vulnerability Lab</h3>
@@ -325,7 +325,7 @@ Software Engineering
                             Hands-on lab demonstrating SQL Injection attack and defense using Flask and SQLite. Includes both vulnerable and patched versions.
                         </p>
                         <div class="project-architecture">
-                            <div class="arch-label">Architecture</div>
+                            <div class="arch-label" data-i18n="project_arch">Architecture</div>
                             <div class="arch-stack">
                                 <span>Flask</span>
                                 <span class="arch-arrow">→</span>
@@ -347,11 +347,11 @@ Software Engineering
 
                     <article class="soon-card" aria-labelledby="proj2-title">
                         <div class="soon-status" style="color:var(--red);" data-i18n="project2_status">[ Access Denied ]</div>
-                        <h3 id="proj2-title" class="soon-title">API Security Lab</h3>
+                        <h3 id="proj2-title" class="soon-title" data-i18n="project2_title">API Security Lab</h3>
                         <div class="soon-progress" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="60% complete">
                             <div class="progress-bar" style="width:60%"></div>
                         </div>
-                        <span class="soon-pct">60% complete</span>
+                        <span class="soon-pct" data-i18n="project2_pct">60% complete</span>
                         <p class="soon-desc" data-i18n="project2_desc">
                             REST API vulnerability environment with JWT attacks, BOLA, and rate-limit bypass demos.
                         </p>
@@ -359,11 +359,11 @@ Software Engineering
 
                     <article class="soon-card" aria-labelledby="proj3-title">
                         <div class="soon-status" style="color:var(--amber);" data-i18n="project3_status">[ Restricted Area ]</div>
-                        <h3 id="proj3-title" class="soon-title">OSINT Automation</h3>
+                        <h3 id="proj3-title" class="soon-title" data-i18n="project3_title">OSINT Automation</h3>
                         <div class="soon-progress" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" aria-label="20% complete">
                             <div class="progress-bar progress-bar--amber" style="width:20%"></div>
                         </div>
-                        <span class="soon-pct">20% complete</span>
+                        <span class="soon-pct" data-i18n="project3_pct">20% complete</span>
                         <p class="soon-desc" data-i18n="project3_desc">
                             Automated recon combining Shodan, WHOIS, and DNS enumeration into a unified report.
                         </p>
@@ -374,35 +374,35 @@ Software Engineering
 
             <!-- Certifications / Learning Path -->
             <section id="certifications" class="certs-section" aria-labelledby="certs-heading">
-                <h2 id="certs-heading">Learning Path</h2>
-                <p class="section-sub">Certifications &amp; platforms I'm actively working through.</p>
+                <h2 id="certs-heading" data-i18n="certs_heading">Learning Path</h2>
+                <p class="section-sub" data-i18n="certs_sub">Certifications &amp; platforms I'm actively working through.</p>
                 <div class="certs-grid reveal-stagger" role="list">
                     <div class="cert-card cert-card--active" role="listitem">
                         <div class="cert-logo" aria-hidden="true">⬡</div>
                         <div class="cert-info">
                             <div class="cert-name">HackTheBox</div>
-                            <div class="cert-status cert-status--active">Active</div>
+                            <div class="cert-status cert-status--active" data-i18n="cert_status_active">Active</div>
                         </div>
                     </div>
                     <div class="cert-card cert-card--active" role="listitem">
                         <div class="cert-logo" aria-hidden="true">🧩</div>
                         <div class="cert-info">
                             <div class="cert-name">TryHackMe</div>
-                            <div class="cert-status cert-status--active">Active</div>
+                            <div class="cert-status cert-status--active" data-i18n="cert_status_active">Active</div>
                         </div>
                     </div>
                     <div class="cert-card cert-card--planned" role="listitem">
                         <div class="cert-logo" aria-hidden="true">📜</div>
                         <div class="cert-info">
                             <div class="cert-name">eJPT</div>
-                            <div class="cert-status cert-status--planned">Roadmap</div>
+                            <div class="cert-status cert-status--planned" data-i18n="cert_status_planned">Roadmap</div>
                         </div>
                     </div>
                     <div class="cert-card cert-card--planned" role="listitem">
                         <div class="cert-logo" aria-hidden="true">🎯</div>
                         <div class="cert-info">
                             <div class="cert-name">OSCP</div>
-                            <div class="cert-status cert-status--planned">Goal</div>
+                            <div class="cert-status cert-status--planned" data-i18n="cert_status_goal">Goal</div>
                         </div>
                     </div>
                 </div>
@@ -501,7 +501,7 @@ Software Engineering
     <span class="text" data-i18n="terminal_help_hint">Terminal</span>
   </button>
 
-    <script type="module" src="js/core/app.js"></script>
+    <script type="module" src="/js/core/app.js"></script>
 </body>
 
 </html>

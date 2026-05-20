@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>404 — abd1llh</title>
-  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -136,15 +136,19 @@
       <p class="err-desc">The requested resource could not be located on this system.</p>
     </div>
     <div class="err-actions">
-      <a href="../index.html" class="btn-home">← Return Home</a>
+      <a href="/en/" class="btn-home" id="home-link">← Return Home</a>
       <button class="btn-back" onclick="history.back()">Go Back</button>
     </div>
   </div>
   <script>
-    // Apply system theme
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const saved = localStorage.getItem('site_theme');
     document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+
+    const pathMatch = window.location.pathname.match(/^\/(en|ar)(\/|$)/);
+    const lang = pathMatch ? pathMatch[1] : (localStorage.getItem('site_lang') === 'ar' ? 'ar' : 'en');
+    const home = document.getElementById('home-link');
+    if (home) home.href = `/${lang}/`;
   </script>
 </body>
 </html>

@@ -136,9 +136,9 @@ document.addEventListener('DOMContentLoaded', async () => {
   initTheme();
   initNavScroll();
   initMenu();
-  initTerminal();
   initReveal();
   await initLanguage();
+  initTerminal();
 
   document.body.classList.add('loaded');
   initScrollSpy();

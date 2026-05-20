@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Security writeups and research by Abdallah Mobaid.">
   <title>Writeups | abd1llh</title>
-  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="/css/main.css">
   <style>
     .page-header {
       padding: 100px 24px 48px;
@@ -63,6 +64,10 @@
       border-radius: 20px;
       font-size: 11px;
     }
+    .writeup-meta .cat--amber {
+      color: var(--amber);
+      border-color: var(--amber);
+    }
     .writeup-card h3 { font-size: 18px; color: var(--text); line-height: 1.3; }
     .writeup-card p { font-size: 14px; color: var(--muted); line-height: 1.7; }
     .read-more {
@@ -78,7 +83,6 @@
     .writeup-card.draft { border-left-color: var(--amber); opacity: 0.7; }
     .writeup-card.draft .read-more { color: var(--amber); }
 
-    /* RTL */
     html[dir="rtl"] .writeup-card {
       border-left: 1px solid var(--border);
       border-right: 3px solid var(--green);
@@ -91,68 +95,70 @@
 </head>
 <body>
   <nav>
-    <a href="../index.html" class="profile-link" aria-label="Back to home">
+    <a href="/en/" class="profile-link" aria-label="Back to home" data-locale-href="/">
       <div class="profile-badge">
-        <img src="../assets/images/profile.png" alt="Abdallah Mobaid">
+        <img src="/assets/images/profile.png" alt="Abdallah Mobaid" width="32" height="32">
         <div>
           <div class="name">Abdallah Mobaid</div>
-          <div class="role">Cybersecurity</div>
+          <div class="role" data-i18n="hero_role">Cybersecurity</div>
         </div>
       </div>
     </a>
     <div class="nav-actions">
       <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">☀️</button>
-      <button id="lang-switch" class="lang-switch" type="button">عربي</button>
+      <button id="lang-switch" class="lang-switch" type="button" aria-label="Switch language">عربي</button>
     </div>
   </nav>
 
   <header class="page-header">
-    <div class="tag">&gt;_ security research</div>
-    <h1>Security <span>Writeups</span></h1>
-    <p>Detailed analysis of vulnerabilities, CTF solutions, and deep dives into offensive security concepts.</p>
+    <div class="tag" data-i18n="writeups_tag">&gt;_ security research</div>
+    <h1 data-i18n="writeups_title">Security <span>Writeups</span></h1>
+    <p data-i18n="writeups_desc">Detailed analysis of vulnerabilities, CTF solutions, and deep dives into offensive security concepts.</p>
   </header>
 
   <section class="writeups-container">
 
     <article class="writeup-card">
       <div class="writeup-meta">
-        <span>May 2026</span>
-        <span class="cat">Web Security</span>
+        <span data-i18n="writeup1_date">May 2026</span>
+        <span class="cat" data-i18n="writeup1_cat">Web Security</span>
       </div>
-      <h3>Anatomy of a SQL Injection: Attack & Defense</h3>
-      <p>A deep dive into how SQL Injection works under the hood. Based on my Web Vulnerability Lab — I demonstrate how to exploit an SQLite database through a vulnerable Flask endpoint, and how to properly secure it using parameterized queries.</p>
-      <a href="#" class="read-more">Read Full Report →</a>
+      <h3 data-i18n="writeup1_title">Anatomy of a SQL Injection: Attack & Defense</h3>
+      <p data-i18n="writeup1_desc">A deep dive into how SQL Injection works under the hood. Based on my Web Vulnerability Lab — I demonstrate how to exploit an SQLite database through a vulnerable Flask endpoint, and how to properly secure it using parameterized queries.</p>
+      <a href="#" class="read-more" data-i18n="writeup1_link">Read Full Report →</a>
     </article>
 
     <article class="writeup-card draft">
       <div class="writeup-meta">
-        <span>Draft</span>
-        <span class="cat" style="color:var(--amber);border-color:var(--amber);">OSINT</span>
+        <span data-i18n="writeup2_status">Draft</span>
+        <span class="cat cat--amber" data-i18n="writeup2_cat">OSINT</span>
       </div>
-      <h3>Automating Open Source Intelligence (OSINT)</h3>
-      <p>Exploring custom Python scripts to automate data collection and correlation from public sources. Covers architecture of a scalable OSINT pipeline using APIs and scraping techniques.</p>
-      <a href="#" class="read-more">[ Coming Soon ]</a>
+      <h3 data-i18n="writeup2_title">Automating Open Source Intelligence (OSINT)</h3>
+      <p data-i18n="writeup2_desc">Exploring custom Python scripts to automate data collection and correlation from public sources. Covers architecture of a scalable OSINT pipeline using APIs and scraping techniques.</p>
+      <a href="#" class="read-more" data-i18n="writeup2_link">[ Coming Soon ]</a>
     </article>
 
     <article class="writeup-card draft">
       <div class="writeup-meta">
-        <span>Draft</span>
-        <span class="cat" style="color:var(--amber);border-color:var(--amber);">API Security</span>
+        <span data-i18n="writeup3_status">Draft</span>
+        <span class="cat cat--amber" data-i18n="writeup3_cat">API Security</span>
       </div>
-      <h3>Building and Breaking a REST API — Security Perspective</h3>
-      <p>How to intentionally build a vulnerable API with common misconfigurations — missing authentication, no rate limiting, IDOR — then patch each one methodically.</p>
-      <a href="#" class="read-more">[ Coming Soon ]</a>
+      <h3 data-i18n="writeup3_title">Building and Breaking a REST API — Security Perspective</h3>
+      <p data-i18n="writeup3_desc">How to intentionally build a vulnerable API with common misconfigurations — missing authentication, no rate limiting, IDOR — then patch each one methodically.</p>
+      <a href="#" class="read-more" data-i18n="writeup3_link">[ Coming Soon ]</a>
     </article>
 
   </section>
 
   <script type="module">
-    // Minimal theme + lang for subpages
-    const theme = localStorage.getItem('site_theme') || 'dark';
-    document.documentElement.setAttribute('data-theme', theme);
-    const btn = document.getElementById('theme-toggle');
-    if (btn) {
-      btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+    import { initLanguage } from '/js/modules/language.js';
+
+    function initTheme() {
+      const saved = localStorage.getItem('site_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+      const btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      btn.textContent = saved === 'dark' ? '☀️' : '🌙';
       btn.addEventListener('click', () => {
         const cur = document.documentElement.getAttribute('data-theme') || 'dark';
         const next = cur === 'dark' ? 'light' : 'dark';
@@ -161,9 +167,11 @@
         btn.textContent = next === 'dark' ? '☀️' : '🌙';
       });
     }
-    const lang = localStorage.getItem('site_lang') || 'en';
-    const langBtn = document.getElementById('lang-switch');
-    if (langBtn) langBtn.textContent = lang === 'ar' ? 'EN' : 'عربي';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      initTheme();
+      await initLanguage();
+    });
   </script>
 </body>
 </html>

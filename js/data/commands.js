@@ -125,23 +125,26 @@ PORT     STATE SERVICE
 
         date: () => new Date().toLocaleString('ar-SA'),
 
+        pwd: '~',
         history: `استخدم <span class="terminal-green">↑ / ↓</span> للتنقل بين الأوامر السابقة.`,
-
-        help: `الأوامر المتاحة:
-  whoami       — من أنا؟
-  ls           — عرض الملفات
-  cat [ملف]   — قراءة ملف
-  neofetch     — معلومات النظام
-  nmap abd1llh.online
-  wget cv.pdf  — تحميل السيرة الذاتية
-  date         — الوقت الحالي
-  clear        — مسح الشاشة
-  help         — هذه القائمة`,
 
         clear: '__clear__',
 
         'wget cv.pdf': `--2026-- https://abd1llh.online/cv.pdf`,
 
+        help: `الأوامر المتاحة:
+  whoami       — من أنا؟
+  ls           — عرض الملفات
+  cat [ملف]   — قراءة ملف
+  pwd          — المسار الحالي
+  cd [مجلد]    — تغيير المجلد
+  neofetch     — معلومات النظام
+  nmap abd1llh.online
+  wget cv.pdf  — تحميل السيرة الذاتية
+  date         — الوقت الحالي
+  clear        — مسح الشاشة
+  help         — هذه القائمة
+  exit         — إغلاق الطرفية`,
         __intro: `مرحباً. اكتب <span class="terminal-accent">help</span> لعرض الأوامر المتاحة.`,
     }
 };

@@ -76,22 +76,15 @@ export function initTerminal() {
 
 function updateTerminalLocale() {
     const input = document.getElementById('term-input');
-    const title = document.querySelector('.terminal-window-title');
-    const prompts =
-        document.querySelectorAll(
-            '.terminal-prompt'
-        );
+    const prompts = document.querySelectorAll('.terminal-prompt');
 
-    prompts.forEach(prompt => {
-
-        prompt.textContent =
-            `visitor@abd1llh:${currentPath}$`;
-
+    prompts.forEach((prompt) => {
+        prompt.textContent = `visitor@abd1llh:${currentPath}$`;
     });
-    if (input) input.placeholder = getTerminalPlaceholder(getCurrentLanguage());
-    if (title) title.textContent = document.documentElement.lang === 'ar' ?
-        'abd1llh ~ الطرفية' :
-        'abd1llh ~ terminal';
+
+    if (input) {
+        input.placeholder = getTerminalPlaceholder(getCurrentLanguage());
+    }
 }
 
 function syncViewportVars() {
