@@ -32,15 +32,32 @@ function setupViewport() {
   syncViewport();
   const vv = window.visualViewport;
   if (vv) {
+    /*
+      Bug 1 + 3 Fix: Listen to both resize and scroll on visualViewport.
+      - resize fires when keyboard opens/closes or orientation changes
+      - scroll fires when the viewport shifts (e.g. Safari top bar shows/hides)
+      Both events should update all viewport CSS vars immediately.
+    */
     vv.addEventListener('resize', () => {
       syncViewport();
       syncTerminalForKeyboard();
     });
-    vv.addEventListener('scroll', syncViewport);
+    vv.addEventListener('scroll', () => {
+      syncViewport();
+      syncTerminalForKeyboard();
+    });
   }
-  window.addEventListener('resize', syncViewport);
+  window.addEventListener('resize', () => {
+    syncViewport();
+    // Bug 4: Update prompt text when screen width changes (narrow vs wide)
+    window.dispatchEvent(new CustomEvent('promptresize'));
+  });
   window.addEventListener('orientationchange', () => {
-    setTimeout(syncViewport, 150); // Give layout time to settle
+    // Give layout time to settle after orientation flip
+    setTimeout(() => {
+      syncViewport();
+      syncTerminalForKeyboard();
+    }, 200);
   });
 }
 

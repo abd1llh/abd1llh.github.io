@@ -20,6 +20,94 @@
   }
 }
 
+/*
+  Bug 7 Fix: Global overflow prevention.
+  Ensures no element creates horizontal scroll on any screen size.
+  Each section is capped at 100% width with overflow-x hidden.
+*/
+main,
+section,
+footer {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/*
+  Bug 7 Fix: Prevent images and media from overflowing containers.
+*/
+img,
+video,
+iframe,
+embed,
+object {
+  max-width: 100%;
+  height: auto;
+}
+
+/*
+  Bug 7 Fix: Long unbreakable strings (URLs, code) should wrap.
+*/
+p, li, td, th, span {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/*
+  Bug 8 Fix: Any table on the site (including dashboard pages) gets
+  wrapped with horizontal scroll so it doesn't break mobile layout.
+  Tables are also given min-width so they don't collapse too small.
+*/
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+  display: block; /* allows overflow-x: auto to work */
+  -webkit-overflow-scrolling: touch; /* momentum scrolling on iOS */
+}
+
+/* Only apply display:block if table is inside a scroll container */
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border);
+}
+
+/*
+  Bug 10 Fix: Global RTL rules — ensure all interactive elements
+  and menu components behave correctly when Arabic is active.
+  These are catch-all rules for any element not explicitly handled.
+*/
+html[dir="rtl"] .menu-bottom {
+  left: var(--sp-5);
+  right: var(--sp-5);
+  text-align: center;
+}
+
+/* Ensure form elements in RTL have correct text direction */
+html[dir="rtl"] input:not(.terminal-input),
+html[dir="rtl"] textarea,
+html[dir="rtl"] select {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Contact info email stays LTR in RTL mode */
+html[dir="rtl"] a[href^="mailto"] {
+  direction: ltr;
+  display: inline-block;
+}
+
+/* Sections with border-top — ensure they don't cut off on mobile */
+@media (max-width: 480px) {
+  #projects,
+  .certs-section,
+  .contact-section {
+    padding-left: var(--sp-4);
+    padding-right: var(--sp-4);
+  }
+}
+
 /* ── Reduce animations on low-power devices ── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

@@ -3,8 +3,13 @@
   flex-direction: column;
   position: fixed;
   right: 24px;
-  bottom: 24px;
-  width: min(440px, calc(100vw - 24px));
+  /*
+    Bug 1 Fix: Use --keyboard-offset to slide terminal up when keyboard opens on iOS.
+    JS updates this var via visualViewport.resize event.
+    Transition makes it feel smooth, not jarring.
+  */
+  bottom: calc(24px + var(--keyboard-offset, 0px));
+  width: min(440px, calc(100vw - 32px));
   height: min(76dvh, 660px);
   background: #0d0d0d;
   border: 1px solid #333;
@@ -16,6 +21,8 @@
   overflow: hidden;
   transform: translateZ(0);
   contain: layout paint;
+  /* Smooth keyboard transition */
+  transition: bottom 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 [data-theme="light"] #terminal {
@@ -82,6 +89,13 @@
   font-size: 14px;
   scrollbar-width: thin;
   scrollbar-color: rgba(255,255,255,.2) transparent;
+  /*
+    Bug 5 Fix: overscroll-behavior prevents the page from scrolling
+    when the user reaches the end of terminal output.
+    scroll-padding-bottom reserves space so last line is always fully visible.
+  */
+  overscroll-behavior: contain;
+  scroll-padding-bottom: 8px;
 }
 
 #term-output .terminal-line + .terminal-line { margin-top: 4px; }
@@ -102,10 +116,18 @@
 
 .terminal-prompt {
   color: #00ff64;
+  /*
+    Bug 4 Fix: prevent prompt from overflowing and pushing input off-screen.
+    On very narrow screens, the prompt is shortened via JS.
+    CSS-side: shrink but don't overflow, use ellipsis as last resort.
+  */
   white-space: nowrap;
   font-size: 16px;
   line-height: 1.2;
   flex: 0 0 auto;
+  max-width: 55%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .terminal-input {
@@ -188,23 +210,41 @@ html[dir="rtl"] .terminal-input { direction: ltr; text-align: left; }
 /* ─── Mobile ─── */
 @media (max-width: 768px) {
   #terminal {
-    right: 8px; left: 8px; bottom: calc(8px + env(safe-area-inset-bottom, 0px));
+    right: 8px; left: 8px;
+    /*
+      Bug 1 Fix (mobile): Same keyboard-offset trick, but also account for
+      safe-area-inset-bottom (iPhone home indicator bar).
+    */
+    bottom: calc(
+      8px +
+      env(safe-area-inset-bottom, 0px) +
+      var(--keyboard-offset, 0px)
+    );
     width: auto;
     height: min(calc(var(--app-height, 100dvh) - 160px), 64dvh);
+    /* Smooth keyboard transition */
+    transition: bottom 0.22s cubic-bezier(0.22, 1, 0.36, 1);
   }
   #terminal.term-maximized {
     width: 100vw !important;
     height: calc(var(--app-height, 100dvh) - var(--safe-top, 0px)) !important;
+    bottom: 0 !important;
+    transition: none !important;
   }
   #term-output { font-size: 13px; padding: 16px 14px 6px; }
-  #term-hint { right: 12px; bottom: 12px; }
+  #term-hint { right: 12px; bottom: calc(12px + env(safe-area-inset-bottom, 0px)); }
   .terminal-window-title { max-width: 55vw; }
   html[dir="rtl"] #term-hint { right: auto; left: 12px; }
   html[dir="rtl"] #terminal { right: 8px; left: 8px; }
 }
 
+/* Bug 4 Fix: On very narrow screens, shorten the prompt further */
 @media (max-width: 420px) {
   #terminal { height: min(calc(var(--app-height, 100dvh) - 150px), 66dvh); }
-  .terminal-prompt { font-size: 15px; }
+  .terminal-prompt {
+    font-size: 13px;
+    /* On 420px and below, show only '$' — JS handles the text, CSS handles the layout */
+    max-width: 40%;
+  }
   .terminal-input { font-size: 16px !important; }
 }

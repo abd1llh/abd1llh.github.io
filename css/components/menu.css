@@ -63,3 +63,23 @@ html[dir="rtl"] .menu-overlay a.nav-link {
   color: var(--muted-2);
   line-height: 1.8;
 }
+
+/*
+  Bug 10 Fix: RTL menu overlay — links and menu-bottom
+  should feel natural when Arabic is active.
+  Nav links get centered (they already are), but we ensure
+  no unintended LTR artifacts remain.
+*/
+html[dir="rtl"] .menu-overlay {
+  direction: rtl;
+}
+
+html[dir="rtl"] .menu-overlay a.nav-link {
+  /* Arabic text is naturally right-aligned; centering works here */
+  text-align: center;
+}
+
+html[dir="rtl"] .menu-bottom {
+  direction: rtl;
+  text-align: center;
+}

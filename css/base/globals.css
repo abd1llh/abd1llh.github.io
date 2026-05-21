@@ -115,8 +115,10 @@ html {
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   overflow-x: hidden;
-  /* Use small viewport for initial to avoid layout jumps */
+  /* Use 100% so dvh works correctly on mobile browsers */
   height: 100%;
+  /* Prevent horizontal overflow globally */
+  max-width: 100vw;
 }
 
 body {
@@ -130,8 +132,11 @@ body {
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-ui);
+  /* Bug 3: Use dvh (dynamic viewport height) — stable on mobile even when browser chrome shows/hides */
   min-height: 100dvh;
+  min-height: -webkit-fill-available; /* iOS Safari fallback */
   overflow-x: hidden;
+  max-width: 100%;
   /* Enable momentum scrolling on iOS */
   -webkit-overflow-scrolling: touch;
   transition: background-color 0.25s ease, color 0.25s ease;
@@ -163,8 +168,23 @@ body {
 /* ─── Common ─── */
 a { text-decoration: none; color: inherit; transition: color 0.15s ease; }
 img { max-width: 100%; display: block; height: auto; }
-button, input { font: inherit; }
-button { touch-action: manipulation; cursor: pointer; border: none; background: none; }
+button { font: inherit; touch-action: manipulation; cursor: pointer; border: none; background: none; }
+
+/*
+  Bug 2 Fix: Safari auto-zooms inputs when font-size < 16px.
+  Setting font-size: 16px on ALL inputs/textareas prevents this globally.
+  Also ensures consistent font rendering across platforms.
+*/
+input,
+textarea,
+select {
+  font: inherit;
+  /* Minimum 16px to prevent iOS Safari auto-zoom on focus */
+  font-size: max(16px, 1em);
+  /* Disable iOS text adjustment */
+  -webkit-text-size-adjust: none;
+  text-size-adjust: none;
+}
 
 ::selection { background: rgba(0, 200, 80, 0.18); }
 

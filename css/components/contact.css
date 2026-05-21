@@ -1,7 +1,12 @@
 .contact-section {
-  max-width: var(--max-width, 1100px);
+  /*
+    Bug 7 Fix: Use var(--max-w) consistent with the rest of the site,
+    and add overflow protection to prevent horizontal scroll.
+  */
+  max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 var(--sp-6) var(--sp-16);
+  padding: 0 var(--sp-4) var(--sp-9);
+  overflow-x: hidden;
 }
 
 .contact-section h2 {
@@ -67,10 +72,19 @@
   border-radius: var(--r-sm);
   color: var(--text);
   padding: 12px 14px;
-  font-family: var(--font-sans);
-  font-size: 14px;
+  font-family: var(--font-ui);
+  /*
+    Bug 2 Fix (contact form): Explicitly set 16px to prevent Safari
+    from auto-zooming when these fields are focused on iOS.
+    The global rule in globals.css handles it, but we keep this here
+    as an explicit declaration for clarity and specificity.
+  */
+  font-size: 16px;
   outline: none;
   transition: border-color 0.15s ease;
+  /* Ensure inputs don't overflow their container */
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .contact-form input:focus,
@@ -98,16 +112,65 @@
 .contact-status--success { color: var(--green); }
 .contact-status--error { color: var(--red, #ff4444); }
 
+/*
+  Bug 10 Fix: Comprehensive RTL support for contact section.
+  When Arabic is active (html[dir="rtl"]), all form elements,
+  labels, and text align to the right correctly.
+*/
+html[dir="rtl"] .contact-section {
+  direction: rtl;
+}
+
 html[dir="rtl"] .contact-grid {
   direction: rtl;
+}
+
+html[dir="rtl"] .contact-form {
+  direction: rtl;
+}
+
+html[dir="rtl"] .contact-form label {
+  text-align: right;
+  letter-spacing: 0; /* No letter-spacing for Arabic */
+}
+
+html[dir="rtl"] .contact-form input,
+html[dir="rtl"] .contact-form textarea {
+  direction: rtl;
+  text-align: right;
 }
 
 html[dir="rtl"] .contact-form button {
   align-self: flex-end;
 }
 
+html[dir="rtl"] .contact-info {
+  text-align: right;
+  direction: rtl;
+}
+
+html[dir="rtl"] .contact-info a {
+  direction: ltr; /* Email address stays LTR */
+  display: inline-block;
+}
+
+/* Mobile: stack to single column */
 @media (max-width: 768px) {
   .contact-grid {
     grid-template-columns: 1fr;
+  }
+  .contact-section {
+    padding-left: var(--sp-4);
+    padding-right: var(--sp-4);
+  }
+}
+
+/* Very small screens */
+@media (max-width: 420px) {
+  .contact-form {
+    padding: var(--sp-4);
+  }
+  .contact-info {
+    padding: var(--sp-4);
   }
 }

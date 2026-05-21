@@ -48,6 +48,15 @@ export function initTerminal() {
 
     input.addEventListener('focus', () => {
         if (!terminalState.opened) openTerminal();
+        /*
+          Bug 1 Fix: When terminal input is focused on mobile,
+          force an immediate viewport sync so --keyboard-offset
+          updates BEFORE the keyboard finishes animating up.
+          We fire syncViewportVars once immediately, then once more
+          after a short delay (keyboard animation ~300ms).
+        */
+        syncViewportVars();
+        setTimeout(syncViewportVars, 350);
         requestAnimationFrame(() => {
             terminal.scrollIntoView({ block: 'end', behavior: 'smooth' });
         });
@@ -55,6 +64,14 @@ export function initTerminal() {
 
     window.addEventListener('languagechange', updateTerminalLocale);
     updateTerminalLocale();
+
+    /*
+      Bug 4 Fix: When screen is resized (e.g. device rotation),
+      re-evaluate whether to show short or long prompt.
+      app.js dispatches 'promptresize' on window.resize.
+    */
+    window.addEventListener('promptresize', updateTerminalLocale);
+
 
     // Keyboard shortcut: backtick or tilde toggles terminal
     document.addEventListener('keydown', (event) => {
@@ -78,8 +95,13 @@ function updateTerminalLocale() {
     const input = document.getElementById('term-input');
     const prompts = document.querySelectorAll('.terminal-prompt');
 
+    /*
+      Bug 4 Fix: On narrow screens (≤420px), use a short prompt '$' to prevent
+      the prompt from crowding the input field. On wider screens, use the full prompt.
+    */
+    const promptText = getPromptText();
     prompts.forEach((prompt) => {
-        prompt.textContent = `visitor@abd1llh:${currentPath}$`;
+        prompt.textContent = promptText;
     });
 
     if (input) {
@@ -87,11 +109,23 @@ function updateTerminalLocale() {
     }
 }
 
+/* Bug 4: Returns short prompt on narrow screens, full prompt otherwise */
+function getPromptText() {
+    const isNarrow = window.innerWidth <= 420;
+    if (isNarrow) return '$';
+    return `visitor@abd1llh:${currentPath}$`;
+}
+
 function syncViewportVars() {
     const vv = window.visualViewport;
     const height = vv ? vv.height : window.innerHeight;
+    const keyboardOffset = vv
+        ? Math.max(0, window.innerHeight - vv.height - (vv.offsetTop || 0))
+        : 0;
+
     document.documentElement.style.setProperty('--app-height', `${Math.round(height)}px`);
-    document.documentElement.style.setProperty('--keyboard-offset', vv ? `${Math.max(0, window.innerHeight - vv.height - vv.offsetTop)}px` : '0px');
+    document.documentElement.style.setProperty('--keyboard-offset', `${Math.round(keyboardOffset)}px`);
+    document.documentElement.style.setProperty('--safe-top', `${Math.round(vv?.offsetTop ?? 0)}px`);
 }
 
 function ensureOpenState() {
@@ -168,7 +202,14 @@ function printLine(text) {
     div.className = 'terminal-line';
     div.innerHTML = text;
     out.appendChild(div);
-    out.scrollTop = out.scrollHeight;
+    /*
+      Bug 5 Fix: Use scrollTo with smooth behavior instead of directly
+      setting scrollTop. This gives a fluid animation as output appears.
+      We also use requestAnimationFrame to ensure DOM has painted first.
+    */
+    requestAnimationFrame(() => {
+        out.scrollTo({ top: out.scrollHeight, behavior: 'smooth' });
+    });
 }
 
 async function runCommand() {
