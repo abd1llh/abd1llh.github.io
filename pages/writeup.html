@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Writeup | abd1llh</title>
+  <meta name="description" content="Security writeup by Abdallah Mobaid.">
+  <link rel="stylesheet" href="/css/main.css">
+  <style>
+    /* ── Page layout ── */
+    .writeup-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--sp-4) var(--sp-10);
+    }
+
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: var(--sp-2);
+      color: var(--muted);
+      font-size: var(--text-sm);
+      font-family: var(--font-mono);
+      margin-bottom: var(--sp-7);
+      transition: color 0.15s ease;
+      padding-top: var(--sp-7);
+    }
+    .back-link:hover { color: var(--green); }
+    html[dir="rtl"] .back-link { flex-direction: row-reverse; }
+
+    /* ── Meta bar ── */
+    .writeup-meta {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-3);
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-5);
+    }
+    .writeup-cat {
+      background: var(--tag-bg);
+      border: 1px solid rgba(0,217,95,0.25);
+      color: var(--green);
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+      padding: 3px 10px;
+      border-radius: var(--r-full);
+    }
+    .writeup-date {
+      color: var(--muted-2);
+      font-size: var(--text-xs);
+      font-family: var(--font-mono);
+    }
+
+    /* ── Hero heading ── */
+    .writeup-title {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: var(--weight-bold);
+      line-height: var(--leading-snug);
+      letter-spacing: var(--tracking-tight);
+      color: var(--text);
+      margin-bottom: var(--sp-5);
+    }
+    html[dir="rtl"] .writeup-title { letter-spacing: 0; text-align: right; }
+
+    /* ── Cover image ── */
+    .writeup-cover {
+      width: 100%;
+      border-radius: var(--r-lg);
+      border: 1px solid var(--border);
+      margin-bottom: var(--sp-7);
+      object-fit: cover;
+      max-height: 360px;
+    }
+
+    /* ── Body content ── */
+    .writeup-body {
+      font-size: var(--text-md);
+      line-height: var(--leading-relaxed);
+      color: var(--text-2);
+    }
+    html[dir="rtl"] .writeup-body {
+      text-align: right;
+      line-height: var(--leading-ar);
+    }
+
+    /* Markdown-like prose styles for the body content */
+    .writeup-body h2 {
+      font-size: var(--text-xl);
+      font-weight: var(--weight-bold);
+      color: var(--text);
+      margin: var(--sp-7) 0 var(--sp-3);
+      padding-bottom: var(--sp-2);
+      border-bottom: 1px solid var(--border);
+    }
+    .writeup-body h3 {
+      font-size: var(--text-lg);
+      font-weight: var(--weight-semibold);
+      color: var(--text);
+      margin: var(--sp-6) 0 var(--sp-2);
+    }
+    .writeup-body p {
+      margin-bottom: var(--sp-4);
+    }
+    .writeup-body code {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r-sm);
+      padding: 2px 6px;
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      color: var(--green);
+      direction: ltr;
+      display: inline;
+    }
+    .writeup-body pre {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--r-md);
+      padding: var(--sp-4);
+      overflow-x: auto;
+      margin: var(--sp-4) 0;
+      font-family: var(--font-mono);
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      direction: ltr;
+    }
+    .writeup-body pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      color: var(--text);
+    }
+    .writeup-body ul, .writeup-body ol {
+      padding-left: var(--sp-6);
+      margin-bottom: var(--sp-4);
+    }
+    html[dir="rtl"] .writeup-body ul,
+    html[dir="rtl"] .writeup-body ol { padding-left: 0; padding-right: var(--sp-6); }
+    .writeup-body li { margin-bottom: var(--sp-2); }
+    .writeup-body a { color: var(--green); text-decoration: underline; }
+    .writeup-body strong { color: var(--text); font-weight: var(--weight-semibold); }
+    .writeup-body blockquote {
+      border-left: 3px solid var(--green);
+      padding: var(--sp-3) var(--sp-4);
+      margin: var(--sp-4) 0;
+      background: var(--green-dim);
+      border-radius: 0 var(--r-sm) var(--r-sm) 0;
+      color: var(--text-2);
+      font-style: italic;
+    }
+    html[dir="rtl"] .writeup-body blockquote {
+      border-left: none;
+      border-right: 3px solid var(--green);
+      border-radius: var(--r-sm) 0 0 var(--r-sm);
+    }
+
+    /* ── States ── */
+    .loading-state, .error-state {
+      text-align: center;
+      padding: var(--sp-10) var(--sp-4);
+      font-family: var(--font-mono);
+      color: var(--muted);
+    }
+    .error-state h2 { color: var(--red); margin-bottom: var(--sp-3); font-size: var(--text-xl); }
+    .loading-dots::after {
+      content: '';
+      animation: loadingDots 1.5s steps(4, end) infinite;
+    }
+    @keyframes loadingDots {
+      0%   { content: ''; }
+      25%  { content: '.'; }
+      50%  { content: '..'; }
+      75%  { content: '...'; }
+      100% { content: ''; }
+    }
+
+    /* ── Divider before nav ── */
+    .writeup-footer {
+      margin-top: var(--sp-9);
+      padding-top: var(--sp-6);
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: var(--sp-4);
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="/en/" class="profile-link" aria-label="abd1llh — go to home" data-locale-href="/">
+      <div class="profile-badge">
+        <img src="/assets/images/profile.png" alt="Abdallah Mobaid" width="32" height="32" loading="eager">
+        <div>
+          <div class="name">Abdallah Mobaid</div>
+          <div class="role" data-i18n="hero_role">Cybersecurity</div>
+        </div>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <button id="lang-switch" class="lang-switch" type="button" aria-label="Switch language">عربي</button>
+      <button class="hamburger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Menu Overlay -->
+  <div class="menu-overlay" id="menu" role="dialog" aria-label="Navigation menu" aria-hidden="true">
+    <nav aria-label="Menu links">
+      <a href="/en/#about" class="nav-link" data-locale-href="/#about" data-i18n="nav_about">About</a>
+      <a href="/en/#projects" class="nav-link" data-locale-href="/#projects" data-i18n="nav_projects">Projects</a>
+      <a href="/en/pages/writeups.html" class="nav-link" data-i18n="nav_writeups" data-locale-href="/pages/writeups.html">Writeups</a>
+      <a href="/en/#skills" class="nav-link" data-locale-href="/#skills" data-i18n="nav_skills">Skills</a>
+      <a href="/en/#contact" class="nav-link" data-locale-href="/#contact" data-i18n="nav_contact">Contact</a>
+    </nav>
+    <div class="menu-bottom" data-base-copy="© 2026 abd1llh">
+      <span style="color:var(--green);font-weight:bold;" aria-hidden="true">>_</span>
+      <span data-i18n="menu_system_active">System Active</span><br><br> © 2026 abd1llh
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <main id="writeup-main" class="writeup-page">
+    <div class="loading-state" id="loading-state" aria-live="polite">
+      <p class="loading-dots">Loading writeup</p>
+    </div>
+    <div id="writeup-content" style="display:none;" aria-live="polite"></div>
+    <div class="error-state" id="error-state" style="display:none;" aria-live="assertive">
+      <h2>404</h2>
+      <p id="error-message">Writeup not found.</p>
+      <a href="/en/pages/writeups.html" class="btn-secondary" style="margin-top:24px;display:inline-flex;" data-locale-href="/pages/writeups.html">← Back to Writeups</a>
+    </div>
+  </main>
+
+  <script type="module">
+    import { initLanguage, getCurrentLanguage } from '/js/modules/language.js';
+    import { initMenu } from '/js/modules/menu.js';
+
+    function escapeHtml(v) {
+      return String(v ?? '')
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;');
+    }
+
+    /**
+     * Minimal markdown-to-HTML converter for writeup bodies.
+     * Handles: headings, bold, italic, code blocks, inline code,
+     * blockquotes, unordered lists, ordered lists, paragraphs.
+     */
+    function markdownToHtml(md) {
+      if (!md) return '<p><em>No content yet.</em></p>';
+      let html = md
+        // Fenced code blocks
+        .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
+          `<pre><code class="lang-${escapeHtml(lang)}">${escapeHtml(code.trim())}</code></pre>`)
+        // Headings
+        .replace(/^### (.+)$/gm, '<h3>$1</h3>')
+        .replace(/^## (.+)$/gm, '<h2>$1</h2>')
+        .replace(/^# (.+)$/gm, '<h2>$1</h2>')
+        // Blockquote
+        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+        // Bold + Italic
+        .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
+        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.+?)\*/g, '<em>$1</em>')
+        // Inline code
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        // Unordered list items
+        .replace(/^\s*[-*] (.+)$/gm, '<li>$1</li>')
+        // Ordered list items
+        .replace(/^\s*\d+\. (.+)$/gm, '<li>$1</li>')
+        // Wrap consecutive <li> in <ul>
+        .replace(/(<li>.*<\/li>\n?)+/gs, match => `<ul>${match}</ul>`)
+        // Line breaks → paragraphs (double newlines)
+        .replace(/\n\n+/g, '</p><p>')
+        // Clean up
+        .replace(/\n/g, '<br>');
+
+      // Wrap non-tag content in paragraphs
+      html = '<p>' + html + '</p>';
+      // Remove empty paragraphs
+      html = html.replace(/<p>\s*<\/p>/g, '');
+      return html;
+    }
+
+    function formatDate(dateStr, lang) {
+      if (!dateStr) return '';
+      try {
+        return new Date(dateStr).toLocaleDateString(
+          lang === 'ar' ? 'ar-SA' : 'en-GB',
+          { year: 'numeric', month: 'long', day: 'numeric' }
+        );
+      } catch { return ''; }
+    }
+
+    function show(id, visible) {
+      const el = document.getElementById(id);
+      if (el) el.style.display = visible ? '' : 'none';
+    }
+
+    async function loadWriteup() {
+      const lang = getCurrentLanguage();
+      const params = new URLSearchParams(window.location.search);
+      const slug = params.get('slug');
+
+      if (!slug) {
+        show('loading-state', false);
+        document.getElementById('error-message').textContent = 'No writeup specified.';
+        show('error-state', true);
+        return;
+      }
+
+      try {
+        const res = await fetch(`/api/writeups/${encodeURIComponent(slug)}`);
+        const json = await res.json();
+
+        show('loading-state', false);
+
+        if (!res.ok || !json.writeup) {
+          document.getElementById('error-message').textContent =
+            lang === 'ar' ? 'المقال غير موجود.' : 'Writeup not found.';
+          show('error-state', true);
+          return;
+        }
+
+        const w = json.writeup;
+        const title = lang === 'ar' ? w.title_ar : w.title_en;
+        const body = lang === 'ar' ? w.body_ar : w.body_en;
+        const category = lang === 'ar' ? w.category_ar : w.category_en;
+        const date = formatDate(w.published_at || w.created_at, lang);
+        const backLabel = lang === 'ar' ? '← العودة للتقارير' : '← Back to Writeups';
+        const backHref = lang === 'ar' ? '/ar/pages/writeups.html' : '/en/pages/writeups.html';
+
+        // Update page title + meta
+        document.title = `${title} | abd1llh`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        const excerpt = lang === 'ar' ? w.excerpt_ar : w.excerpt_en;
+        if (metaDesc && excerpt) metaDesc.setAttribute('content', excerpt);
+
+        const content = document.getElementById('writeup-content');
+        content.innerHTML = `
+          <a href="${backHref}" class="back-link" aria-label="${backLabel}">${backLabel}</a>
+
+          <div class="writeup-meta">
+            ${category ? `<span class="writeup-cat">${escapeHtml(category)}</span>` : ''}
+            ${date ? `<time class="writeup-date" datetime="${w.published_at || ''}">${escapeHtml(date)}</time>` : ''}
+          </div>
+
+          <h1 class="writeup-title">${escapeHtml(title)}</h1>
+
+          ${w.image_url ? `<img src="${escapeHtml(w.image_url)}" alt="${escapeHtml(title)}" class="writeup-cover" loading="lazy">` : ''}
+
+          <article class="writeup-body" lang="${lang}" ${lang === 'ar' ? 'dir="rtl"' : ''}>
+            ${markdownToHtml(body)}
+          </article>
+
+          <div class="writeup-footer">
+            <a href="${backHref}" class="btn-secondary">${backLabel}</a>
+            ${w.external_url ? `<a href="${escapeHtml(w.external_url)}" target="_blank" rel="noreferrer noopener" class="btn-primary">
+              ${lang === 'ar' ? 'عرض المصدر الخارجي' : 'View External Source'} →
+            </a>` : ''}
+          </div>
+        `;
+
+        show('writeup-content', true);
+
+      } catch (err) {
+        console.error('Writeup load error:', err);
+        show('loading-state', false);
+        document.getElementById('error-message').textContent =
+          lang === 'ar' ? 'خطأ في تحميل المقال.' : 'Failed to load writeup.';
+        show('error-state', true);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Init theme
+      const saved = localStorage.getItem('site_theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', saved);
+
+      await initLanguage();
+      initMenu();
+      await loadWriteup();
+    });
+  </script>
+</body>
+</html>

@@ -142,8 +142,37 @@ body { padding-top: var(--nav-h); }
 .hamburger.open span:nth-child(2) { transform: translateY(-3.5px) rotate(-45deg); }
 
 /* ─── RTL ─── */
-html[dir="rtl"] .profile-badge { padding: 5px 5px 5px 14px; direction: rtl; }
-html[dir="rtl"] .nav-actions { flex-direction: row-reverse; }
+/*
+  When Arabic is active, the entire nav row flips:
+  - Profile badge moves to the RIGHT (it becomes the end of the LTR flex row = start in RTL)
+  - nav-actions (lang button + hamburger) moves to the LEFT
+  - Profile badge internal padding reverses
+  - Role text stays readable
+*/
+html[dir="rtl"] nav {
+  /* Reverse the flex row so profile badge is on the right, actions on the left */
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .profile-badge {
+  /* Flip internal padding: avatar is now on right side */
+  padding: 5px 5px 5px 14px;
+  /* Keep LTR internal layout so avatar stays left of text within the badge */
+  direction: ltr;
+}
+
+html[dir="rtl"] .nav-actions {
+  /* Reverse the action buttons order */
+  flex-direction: row-reverse;
+}
+
+html[dir="rtl"] .profile-badge .name {
+  /* Name and role text in RTL direction inside badge */
+  text-align: right;
+}
+
+/* ─── Active nav link (scroll-spy) ─── */
+.nav-link--active { color: var(--green) !important; }
 
 /* ─── Mobile ─── */
 @media (max-width: 480px) {
@@ -151,6 +180,3 @@ html[dir="rtl"] .nav-actions { flex-direction: row-reverse; }
   .profile-badge .role { display: none; }
   .lang-switch { padding: 0 10px; font-size: 11px; }
 }
-
-/* ─── Active nav link (scroll-spy) ─── */
-.nav-link--active { color: var(--green) !important; }

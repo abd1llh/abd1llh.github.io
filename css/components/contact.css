@@ -1,12 +1,13 @@
+/* ══════════════════════════════════════════════════════════
+   CONTACT SECTION — Full redesign
+   Clean grid layout, no text overlap, perfect on all screens
+   ══════════════════════════════════════════════════════════ */
+
 .contact-section {
-  /*
-    Bug 7 Fix: Use var(--max-w) consistent with the rest of the site,
-    and add overflow protection to prevent horizontal scroll.
-  */
   max-width: var(--max-w);
   margin: 0 auto;
-  padding: 0 var(--sp-4) var(--sp-9);
-  overflow-x: hidden;
+  padding: var(--sp-9) var(--sp-4);
+  border-top: 1px solid var(--section-border);
 }
 
 .contact-section h2 {
@@ -14,114 +15,154 @@
 }
 
 .contact-section .section-sub {
-  margin-bottom: var(--sp-8);
+  margin-bottom: var(--sp-7);
 }
 
+/* ─── Two-column grid: info left, form right ─── */
 .contact-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: var(--sp-8);
+  grid-template-columns: 1fr 1.6fr;
+  gap: var(--sp-6);
   align-items: start;
 }
 
+/* ─── Info panel ─── */
 .contact-info {
   background: var(--card-bg);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
-  padding: var(--sp-8);
-}
-
-.contact-info p {
-  color: var(--muted);
-  line-height: 1.7;
-  font-size: 14px;
-  margin-bottom: var(--sp-6);
-}
-
-.contact-info a {
-  color: var(--green);
-  font-family: var(--font-mono);
-  font-size: 13px;
-}
-
-.contact-form {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: var(--sp-8);
+  padding: var(--sp-6);
   display: flex;
   flex-direction: column;
   gap: var(--sp-4);
 }
 
+.contact-info p {
+  color: var(--muted);
+  line-height: var(--leading-relaxed);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.contact-info a {
+  color: var(--green);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  word-break: break-all;
+  transition: opacity 0.15s ease;
+}
+
+.contact-info a:hover { opacity: 0.75; }
+
+/* ─── Form panel ─── */
+.contact-form {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+/* ─── Label + input group ─── */
 .contact-form label {
   display: flex;
   flex-direction: column;
-  gap: 6px;
-  font-size: 12px;
+  gap: var(--sp-2);
+  /* Fix: label text must not overlap input — use block stacking */
+  width: 100%;
+}
+
+.contact-form label > span {
+  font-size: var(--text-xs);
   color: var(--muted-2);
   font-family: var(--font-mono);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: var(--tracking-label);
+  line-height: 1;
+  /* Ensure span never bleeds into input */
+  display: block;
+  margin-bottom: 0;
 }
 
+/* ─── Input & Textarea ─── */
 .contact-form input,
 .contact-form textarea {
+  /*
+    Fix: Use width: 100% + box-sizing: border-box so inputs
+    never overflow their container on any screen size.
+    Fix: 16px font-size prevents Safari auto-zoom on iOS.
+  */
+  width: 100%;
+  box-sizing: border-box;
   background: var(--bg);
   border: 1px solid var(--border-mid);
   border-radius: var(--r-sm);
   color: var(--text);
   padding: 12px 14px;
   font-family: var(--font-ui);
-  /*
-    Bug 2 Fix (contact form): Explicitly set 16px to prevent Safari
-    from auto-zooming when these fields are focused on iOS.
-    The global rule in globals.css handles it, but we keep this here
-    as an explicit declaration for clarity and specificity.
-  */
   font-size: 16px;
+  line-height: var(--leading-normal);
   outline: none;
-  transition: border-color 0.15s ease;
-  /* Ensure inputs don't overflow their container */
-  width: 100%;
-  box-sizing: border-box;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  /* Remove browser default appearance */
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .contact-form input:focus,
 .contact-form textarea:focus {
   border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-dim);
 }
 
 .contact-form textarea {
   min-height: 140px;
   resize: vertical;
+  /* Ensure textarea grows vertically, not horizontally */
+  max-width: 100%;
 }
 
-.contact-form button {
-  align-self: flex-start;
+/* ─── Submit button alignment ─── */
+.contact-form .form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-4);
+  flex-wrap: wrap;
   margin-top: var(--sp-2);
 }
 
-.contact-status {
-  font-size: 13px;
-  font-family: var(--font-mono);
-  min-height: 1.2em;
+.contact-form button[type="submit"] {
+  /* Prevent button from stretching to full width on mobile */
+  align-self: flex-start;
 }
 
+/* ─── Status message ─── */
+.contact-status {
+  font-size: var(--text-sm);
+  font-family: var(--font-mono);
+  min-height: 1.4em;
+  line-height: var(--leading-normal);
+  flex: 1;
+}
+
+.contact-status:empty { display: none; }
 .contact-status--pending { color: var(--amber); }
 .contact-status--success { color: var(--green); }
-.contact-status--error { color: var(--red, #ff4444); }
+.contact-status--error { color: var(--red); }
 
-/*
-  Bug 10 Fix: Comprehensive RTL support for contact section.
-  When Arabic is active (html[dir="rtl"]), all form elements,
-  labels, and text align to the right correctly.
-*/
+/* ══════════════════════════════════════════════════════════
+   RTL — Full right-to-left layout for Arabic
+   ══════════════════════════════════════════════════════════ */
+
 html[dir="rtl"] .contact-section {
   direction: rtl;
 }
 
 html[dir="rtl"] .contact-grid {
+  /* Flip columns: info right, form left */
   direction: rtl;
 }
 
@@ -129,9 +170,9 @@ html[dir="rtl"] .contact-form {
   direction: rtl;
 }
 
-html[dir="rtl"] .contact-form label {
+html[dir="rtl"] .contact-form label > span {
   text-align: right;
-  letter-spacing: 0; /* No letter-spacing for Arabic */
+  letter-spacing: 0; /* No letter-spacing for Arabic labels */
 }
 
 html[dir="rtl"] .contact-form input,
@@ -140,37 +181,51 @@ html[dir="rtl"] .contact-form textarea {
   text-align: right;
 }
 
-html[dir="rtl"] .contact-form button {
-  align-self: flex-end;
-}
-
 html[dir="rtl"] .contact-info {
   text-align: right;
-  direction: rtl;
 }
 
-html[dir="rtl"] .contact-info a {
-  direction: ltr; /* Email address stays LTR */
+/* Email address always stays LTR even in RTL mode */
+html[dir="rtl"] .contact-info a[href^="mailto"] {
+  direction: ltr;
   display: inline-block;
+  text-align: left;
 }
 
-/* Mobile: stack to single column */
+html[dir="rtl"] .contact-form .form-footer {
+  flex-direction: row-reverse;
+}
+
+/* ══════════════════════════════════════════════════════════
+   RESPONSIVE
+   ══════════════════════════════════════════════════════════ */
+
+/* Tablet and below: single column */
 @media (max-width: 768px) {
   .contact-grid {
     grid-template-columns: 1fr;
+    gap: var(--sp-4);
   }
   .contact-section {
-    padding-left: var(--sp-4);
-    padding-right: var(--sp-4);
+    padding: var(--sp-7) var(--sp-4);
   }
 }
 
-/* Very small screens */
-@media (max-width: 420px) {
+/* Small phones */
+@media (max-width: 480px) {
   .contact-form {
     padding: var(--sp-4);
   }
   .contact-info {
     padding: var(--sp-4);
+  }
+  .contact-form .form-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .contact-form .form-footer button,
+  .contact-form button[type="submit"] {
+    width: 100%;
+    justify-content: center;
   }
 }

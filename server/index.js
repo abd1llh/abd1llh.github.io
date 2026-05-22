@@ -5,11 +5,12 @@ import express from 'express';
 import rateLimit from 'express-rate-limit';
 import helmet from 'helmet';
 
-import healthRoutes from './routes/health.js';
-import contactRoutes from './routes/contact.js';
-import writeupRoutes from './routes/writeups.js';
+import healthRoutes    from './routes/health.js';
+import contactRoutes   from './routes/contact.js';
+import writeupRoutes   from './routes/writeups.js';
 import analyticsRoutes from './routes/analytics.js';
-import adminRoutes from './routes/admin.js';
+import adminRoutes     from './routes/admin.js';
+import projectRoutes   from './routes/projects.js';
 
 const app = express();
 const PORT = Number(process.env.PORT) || 3000;
@@ -87,6 +88,7 @@ app.use('/api', apiLimiter);
 app.use('/api', healthRoutes);
 app.use('/api', writeupRoutes);
 app.use('/api', analyticsRoutes);
+app.use('/api', projectRoutes);
 
 /* =========================================
    CONTACT ROUTE + LIMITER
