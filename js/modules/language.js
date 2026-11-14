@@ -57,10 +57,15 @@ function updateSeoUrls(lang) {
 }
 
 function syncLocaleLinks(lang) {
+  // Keep the URL style of the current page. Behind the nginx rewrites
+  // every URL carries a locale prefix and links keep it; on plain static
+  // hosting (GitHub Pages) prefixed paths do not exist as files, so the
+  // links must stay unprefixed or every navigation would 404.
+  const prefixed = getLangFromPath() !== null;
   document.querySelectorAll('[data-locale-href]').forEach((element) => {
     const path = element.getAttribute('data-locale-href') || '/';
     const normalized = path.startsWith('/') ? path : `/${path}`;
-    element.setAttribute('href', buildLocaleUrl(lang, normalized));
+    element.setAttribute('href', prefixed ? buildLocaleUrl(lang, normalized) : normalized);
   });
 }
 
@@ -139,13 +144,17 @@ export async function loadLanguage(lang) {
 export async function initLanguage() {
   const pathLang = getLangFromPath();
 
-  if (!pathLang) {
+  if (pathLang) {
+    await loadLanguage(pathLang);
+  } else {
+    // No locale prefix in the URL. Deployments behind the nginx rewrites
+    // always carry a prefix, but plain static hosting (GitHub Pages) has
+    // no files at /en/... or /ar/... — redirecting there lands on a 404.
+    // Translations are applied client-side anyway, so load the saved
+    // language in place and keep the unprefixed URLs.
     const saved = localStorage.getItem('site_lang') === 'ar' ? 'ar' : 'en';
-    window.location.replace(buildLocaleUrl(saved, window.location.pathname || '/'));
-    return;
+    await loadLanguage(saved);
   }
-
-  await loadLanguage(pathLang);
 
   const langBtn = document.getElementById('lang-switch');
   if (!langBtn) return;
@@ -153,7 +162,13 @@ export async function initLanguage() {
   langBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const next = currentLanguage === 'en' ? 'ar' : 'en';
-    window.location.href = buildLocaleUrl(next);
+    if (getLangFromPath()) {
+      window.location.href = buildLocaleUrl(next);
+    } else {
+      // Unprefixed URL (static hosting): swap the language in place
+      // instead of navigating to a prefixed URL that does not exist.
+      loadLanguage(next);
+    }
   });
 }
 
