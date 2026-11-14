@@ -533,6 +533,13 @@
         <span class="text" data-i18n="terminal_help_hint">Terminal</span>
     </button>
 
+    <!-- Motion libraries: GSAP (+ ScrollTrigger, SplitText) and Lenis smooth scroll.
+         Loaded as classic scripts so window.gsap / window.Lenis exist before app.js runs.
+         If a CDN fails, js/modules/motion.js no-ops and the site keeps its CSS reveals. -->
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lenis@1/dist/lenis.min.js"></script>
     <script type="module" src="/js/core/app.js"></script>
 </body>
 
