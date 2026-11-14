@@ -1,0 +1,67 @@
+/* ══════════════════════════════════════════════════════════
+   MOTION — GSAP / Lenis layer (see js/modules/motion.js)
+   Animated hero background + smooth-scroll support styles.
+   The background layer is injected by JS; with no JS the hero
+   keeps its plain styling.
+   ══════════════════════════════════════════════════════════ */
+
+/* Lenis recommended base styles */
+html.lenis { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+/* Hero becomes the positioning context for its background layer */
+.hero { position: relative; overflow: clip; }
+
+/* Content stays above the background layer */
+.hero > *:not(.hero-bg) { position: relative; z-index: 1; }
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Subtle terminal-style grid, fading out towards the edges */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 25%, transparent 75%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black 25%, transparent 75%);
+}
+[data-theme="light"] .hero-grid {
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+}
+
+/* Soft glow orbs (drifted by GSAP) */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+}
+.hero-orb--a {
+  width: 420px; height: 420px;
+  top: -140px;
+  inset-inline-start: 6%;
+  background: radial-gradient(circle, rgba(0, 217, 95, 0.26), transparent 65%);
+}
+.hero-orb--b {
+  width: 460px; height: 460px;
+  bottom: -180px;
+  inset-inline-end: 2%;
+  background: radial-gradient(circle, rgba(0, 170, 255, 0.16), transparent 65%);
+}
+
+/* SplitText word wrappers (transforms need inline-block) */
+.hero-word { display: inline-block; }
+
+/* Reduced motion: background stays static (JS also skips animating) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb { opacity: 0.6; }
+}
