@@ -253,16 +253,20 @@
      */
     function markdownToHtml(md) {
       if (!md) return '<p><em>No content yet.</em></p>';
-      let html = md
-        // Fenced code blocks
+      // Escape ALL raw HTML first: the writeup body is data, never markup.
+      // The markdown transforms below then run on the escaped text, so any
+      // <script> or <img onerror> stored in a body renders as inert text
+      // instead of executing in visitors' browsers (stored-XSS fix).
+      let html = escapeHtml(md)
+        // Fenced code blocks (lang and code are already escaped above)
         .replace(/```(\w*)\n([\s\S]*?)```/g, (_, lang, code) =>
-          `<pre><code class="lang-${escapeHtml(lang)}">${escapeHtml(code.trim())}</code></pre>`)
+          `<pre><code class="lang-${lang}">${code.trim()}</code></pre>`)
         // Headings
         .replace(/^### (.+)$/gm, '<h3>$1</h3>')
         .replace(/^## (.+)$/gm, '<h2>$1</h2>')
         .replace(/^# (.+)$/gm, '<h2>$1</h2>')
         // Blockquote
-        .replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>')
+        .replace(/^&gt; (.+)$/gm, '<blockquote>$1</blockquote>')
         // Bold + Italic
         .replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>')
         .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
