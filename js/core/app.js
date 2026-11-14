@@ -2,6 +2,7 @@ import { initMenu }     from '../modules/menu.js';
 import { initLanguage } from '../modules/language.js';
 import { initTerminal } from '../modules/terminal.js';
 import { initReveal }   from '../modules/reveal.js';
+import { initMotion }   from '../modules/motion.js';
 import { initContactForm } from '../modules/contact.js';
 import { initTracker } from '../services/analytics.js';
 
@@ -157,6 +158,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   initMenu();
   initReveal();
   await initLanguage();
+  initMotion();
   initTerminal();
   initContactForm();
   initTracker();
