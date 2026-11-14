@@ -23,9 +23,26 @@ app.use(
     })
 );
 
+// Strict CORS: the frontend calls this API same-origin (relative /api
+// through nginx), so cross-origin browser access is denied unless
+// CORS_ORIGIN explicitly lists the allowed origins (comma-separated).
+// The previous `|| true` fallback reflected ANY origin with credentials.
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+    .split(',')
+    .map(o => o.trim())
+    .filter(Boolean);
+
 app.use(
     cors({
-        origin: process.env.CORS_ORIGIN || true,
+        origin(origin, callback) {
+            // Requests without an Origin header (same-origin, curl,
+            // health checks) are not CORS requests: let them through.
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(null, false);
+            }
+        },
         credentials: true,
     })
 );
