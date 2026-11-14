@@ -3,9 +3,28 @@ import jwt from 'jsonwebtoken';
 const COOKIE_NAME  = 'abd1llh_admin';
 const MAX_AGE_MS   = 12 * 60 * 60 * 1000; // 12 hours
 
+let cachedSecret;
+
 function getSecret() {
-    return process.env.JWT_SECRET || 'change-me-in-production';
+    if (cachedSecret) return cachedSecret;
+
+    const secret = process.env.JWT_SECRET;
+    if (!secret) {
+        // Never fall back to a hard-coded default: this repository is
+        // public, so a built-in secret would let anyone forge an admin
+        // token. Refuse to run without a real signing secret instead.
+        throw new Error('JWT_SECRET is not set. Set a long random JWT_SECRET in the environment.');
+    }
+    if (secret.length < 32) {
+        console.warn('[auth] WARNING: JWT_SECRET is shorter than 32 characters. Use a long random value.');
+    }
+
+    cachedSecret = secret;
+    return cachedSecret;
 }
+
+// Fail fast at startup when the signing secret is missing.
+getSecret();
 
 export function signAdminToken() {
     return jwt.sign({ role: 'admin' }, getSecret(), { expiresIn: '12h' });
