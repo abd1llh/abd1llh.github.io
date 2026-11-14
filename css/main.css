@@ -13,6 +13,7 @@
 @import url('./components/terminal.css');
 @import url('./components/menu.css');
 @import url('./components/animations.css');
+@import url('./components/motion.css');
 
 /* ─── Utilities ─── */
 @import url('./utilities/responsive.css');
